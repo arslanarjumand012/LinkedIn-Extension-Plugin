@@ -18,11 +18,7 @@ body {
 .main__container {
   width: 500px;
   height: 101vh;
-<<<<<<< HEAD
   padding: 10px;
-=======
-  padding: 15px 20px;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   box-sizing: border-box;
   background: #f7fbff 0% 0% no-repeat padding-box;
   font-family: "Roboto", sans-serif;
@@ -52,15 +48,8 @@ body {
   width: 27px;
   height: 30px;
   position: absolute;
-<<<<<<< HEAD
   top: 5px;
   left: 250px;
-=======
-  top: -2px;
-  left: 50%;
-  cursor: pointer;
-  transform: translate(-50%, 0%);
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 }
 
 .imgContainer {

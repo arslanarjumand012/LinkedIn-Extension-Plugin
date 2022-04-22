@@ -174,7 +174,6 @@ function setup() {
             var row =
               item.image != null
                 ? `<span class="new-top-img" id="sharedm${count}">
-<<<<<<< HEAD
           <input type="hidden" id="value${z}" value="${
                     item.linked_to_id
                   }"></input>
@@ -184,15 +183,6 @@ function setup() {
               ? `<div class="countNum1">${item.total_notifications}</div>`
               : ""
           }
-=======
-          <input type="hidden" id="value${z}" value="${item.linked_to_id}"></input>
-          <div class="iconMsgPicContainer">
-          ${
-            item.total_notifications != 0
-            ? `<div class="countNum1">${item.total_notifications}</div>`
-            : ""
-            }
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
             <img class="new-header-item-img" src="${item.image}">
             <span class="tooltiptext">${item.username}</span>
             </div>
@@ -202,7 +192,6 @@ function setup() {
             var row_second =
               item.image != null
                 ? `<span class="new-top-img" id="sharedm${r}">
-<<<<<<< HEAD
             <input type="hidden" id="value${j}" value="${
                     item.linked_to_id
                   }"></input>
@@ -212,15 +201,6 @@ function setup() {
                 ? `<div class="countNum1">${item.total_notifications}</div>`
                 : ""
             }
-=======
-            <input type="hidden" id="value${j}" value="${item.linked_to_id}"></input>
-            <div class="iconMsgPicContainer">
-            ${
-              item.total_notifications != 0
-              ? `<div class="countNum1">${item.total_notifications}</div>`
-              : ""
-              }
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
               <img class="new-header-item-img" src="${item.image}">
               <span class="tooltiptext">${item.username}</span>
               </div>
@@ -381,10 +361,6 @@ function setup() {
                               <div class="groupBox groupChats" data-group_id=${
                                 item.group_id
                               }>
-<<<<<<< HEAD
-
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
                               ${item.members
                                 .slice(0, 4)
                                 .map((ele) => {
@@ -397,10 +373,6 @@ function setup() {
                                     : ""
                                 }
                                 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
                                 <div class="groupName">${
                                   item.name.length > 10
                                     ? `${item.name.slice(0, 10)} ...`
@@ -443,10 +415,7 @@ function setup() {
                 .forEach((chats1) => {
                   chats1.innerHTML += `
                 <div class="smallgroupBox" data-group_id=${item.group_id}>
-<<<<<<< HEAD
                 <span class="tooltiptext">${item.group_name}</span>
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
                   ${
                     item.notifications != 0
                       ? `<div class="countNum">${item.notifications}</div>`
@@ -605,16 +574,6 @@ function setup() {
                 .slice(0, 10);
               document.getElementById("discovery_call").value =
                 formattedDateDiscovery;
-<<<<<<< HEAD
-=======
-            } else {
-              var dateDiscovery = new Date();
-              var formattedDateDiscovery = dateDiscovery
-                .toISOString()
-                .slice(0, 10);
-              document.getElementById("discovery_call").value =
-                formattedDateDiscovery;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
             }
 
             var dbDateUpdated = prev.updated_at;
@@ -731,10 +690,6 @@ function setup() {
 
     var today = new Date();
     var today = today.toISOString().substring(0, 10);
-<<<<<<< HEAD
-=======
-    document.getElementById("discovery_call").value = today;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     document.getElementById("weekly_date").value = today;
     document.getElementById("weekly_date").max = today;
     var weekly_source = today;
@@ -881,16 +836,6 @@ function setup() {
               .slice(0, 10);
             document.getElementById("discovery_call").value =
               formattedDateDiscovery;
-<<<<<<< HEAD
-=======
-          } else {
-            var dateDiscovery = new Date();
-            var formattedDateDiscovery = dateDiscovery
-              .toISOString()
-              .slice(0, 10);
-            document.getElementById("discovery_call").value =
-              formattedDateDiscovery;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
           }
 
           var dbDateUpdated = prev.updated_at;
@@ -1010,11 +955,7 @@ function setup() {
 
     var today = new Date();
     var today = today.toISOString().substring(0, 10);
-<<<<<<< HEAD
     // document.getElementById("discovery_call").value = today;
-=======
-    document.getElementById("discovery_call").value = today;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     document.getElementById("weekly_date").value = today;
     document.getElementById("weekly_date").max = today;
     var weekly_source = today;
@@ -1252,13 +1193,6 @@ setInterval(() => {
 
       document.getElementById("profile_link").innerText = prev.profile_link;
 
-<<<<<<< HEAD
-=======
-      var dateDiscovery = new Date();
-      var formattedDateDiscovery = dateDiscovery.toISOString().slice(0, 10);
-      document.getElementById("discovery_call").value = formattedDateDiscovery;
-
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
       document.getElementById("endorsement_yes").checked = true;
 
       document.getElementById("priority_a").checked = true;
@@ -1549,13 +1483,6 @@ function starDeleteProspect() {
       user_id = second_user_id;
     }
 
-<<<<<<< HEAD
-=======
-    var today = new Date();
-    var today = today.toISOString().substring(0, 10);
-    document.getElementById("discovery_call").value = today;
-
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     const url = `${globalURl}/alreadyStored`;
 
     var xhr = new XMLHttpRequest();
@@ -1818,19 +1745,11 @@ function addComment() {
       let comment_id = localStorage.getItem("comment_id");
       let updatedComment = document.getElementById("comment_box").value;
 
-<<<<<<< HEAD
       if (updatedComment != "") {
         const url = `${globalURl}/edit_comment`;
 
         let xhr = new XMLHttpRequest();
 
-=======
-      if(updatedComment != ''){
-        const url = `${globalURl}/edit_comment`;
-  
-        let xhr = new XMLHttpRequest();
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
@@ -1839,11 +1758,6 @@ function addComment() {
             comment: updatedComment,
           })
         );
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         xhr.onreadystatechange = function () {
           if (xhr.readyState == 4 && xhr.status == 200) {
             let response = JSON.parse(xhr.responseText);
@@ -2050,11 +1964,6 @@ function openThreeDotMenu(e) {
     .addEventListener("click", deleteComment);
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 function editComment(e) {
   document.querySelectorAll(".menuBox").forEach((ele) => {
     ele.style.display = "none";
@@ -2082,11 +1991,7 @@ function editComment(e) {
     document.getElementById("cancel_comment").style.display = "none";
     document.getElementById("comment_box").value = "";
     localStorage.removeItem("comment_id");
-<<<<<<< HEAD
     localStorage.setItem("commentID", JSON.stringify([]));
-=======
-    localStorage.setItem('commentID', JSON.stringify([]));
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     commentArray = [];
     document.querySelector(".taggedUser").innerHTML = "";
   });
@@ -2984,10 +2889,6 @@ function getSinglePage(e) {
 
         var today = new Date(res.user.weekly_date);
         var today = today.toISOString().substring(0, 10);
-<<<<<<< HEAD
-=======
-        document.getElementById("discovery_call").value = today;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         document.getElementById("weekly_date").value = today;
         document.getElementById("weekly_date").max = today;
         var weekly_source = today;
@@ -3019,14 +2920,6 @@ function getSinglePage(e) {
           var formattedDateDiscovery = dateDiscovery.toISOString().slice(0, 10);
           document.getElementById("discovery_call").value =
             formattedDateDiscovery;
-<<<<<<< HEAD
-=======
-        } else {
-          var dateDiscovery = new Date();
-          var formattedDateDiscovery = dateDiscovery.toISOString().slice(0, 10);
-          document.getElementById("discovery_call").value =
-            formattedDateDiscovery;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         }
 
         document.getElementById("updated_at").value = res.user.updated_at;
@@ -4439,7 +4332,6 @@ function ArrayMaker() {
 
   let listIds = JSON.parse(localStorage.getItem("lists"));
 
-<<<<<<< HEAD
   let currentUserlists = JSON.parse(localStorage.getItem("currentUserlists"));
 
   if (listIds) {
@@ -4461,31 +4353,6 @@ function ArrayMaker() {
   if (second_user_id != null) {
     user_id = second_user_id;
   }
-=======
-  let currentUserlists = JSON.parse(localStorage.getItem('currentUserlists'));
- 
-    if (listIds) {
-      listIds.map((obj) => {
-        lists.push(obj.id);
-      });
-    }
-    else{
-      if(user_id == second_user_id || !second_user_id){
-        if(currentUserlists){
-          currentUserlists.map((obj) => {
-            lists.push(obj.id);
-          });
-        }
-      }
-      else{
-        lists = [];
-      }
-    }
-
-    if (second_user_id != null) {
-      user_id = second_user_id;
-    }
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 
   const url = `${globalURl}/filters`;
 
@@ -5256,7 +5123,6 @@ function activeUserChat(e) {
   let group_id = e.currentTarget.getAttribute("data-group_id");
 
   localStorage.setItem("group_id", group_id);
-<<<<<<< HEAD
 
   document.getElementById("shareInGroupsModal").style.transform = "scale(1)";
   document.getElementById("shareInGroupsModal").style.opacity = 1;
@@ -5273,8 +5139,6 @@ function closeShareInGroupsModal() {
   document.querySelectorAll(".groupBox").forEach((ele) => {
     ele.classList.remove("groupBoxClicked");
   });
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 }
 
 document
@@ -5359,10 +5223,6 @@ function openDirectChat(element) {
 
 function shareProspectData() {
   // openOptionChooseModal();
-<<<<<<< HEAD
-=======
-
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
   var prospect_id = localStorage.getItem("prospect_id");
@@ -5395,15 +5255,11 @@ function shareProspectData() {
         }
       };
     } else {
-<<<<<<< HEAD
       var myToast = Toastify({
         text: "At least Select 1 Group",
         duration: 2000,
       });
       myToast.showToast();
-=======
-      alert("At least Select 1 Group");
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     }
   } else {
     var myToast = Toastify({
@@ -5414,10 +5270,6 @@ function shareProspectData() {
   }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 setInterval(() => {
   if (document.getElementById("dbLogo")) {
     var dbLogo = document.getElementById("dbLogo");
@@ -5681,13 +5533,8 @@ if (document.getElementById("listing")) {
 }
 
 function showListing() {
-<<<<<<< HEAD
   localStorage.removeItem("editList");
 
-=======
-  localStorage.removeItem('editList');
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   document.getElementById("optionChooseModal").style.transform = "scale(1)";
   document.getElementById("optionChooseModal").style.opacity = 1;
 
@@ -5730,13 +5577,9 @@ function showListing() {
                   ? `${obj.title.slice(0, 30)}...`
                   : obj.title
               }</div>
-<<<<<<< HEAD
               <input type="hidden" class="listDesc1" value="${
                 obj.description != null ? obj.description : ""
               }"/>
-=======
-              <input type="hidden" class="listDesc1" value="${obj.description != null ? obj.description : ''}"/>
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
               <div class="listToggleBox" ${
                 obj.check != false ? `style='background-color: ${obj.hex}'` : ""
               }></div>
@@ -5820,19 +5663,11 @@ let modalInterval = setInterval(() => {
         document.getElementById("listTitle").value = "";
         document.getElementById("listDesc").value = "";
 
-<<<<<<< HEAD
         document.getElementById("createListHeading").style.display = "block";
         document.getElementById("updateListHeading").style.display = "none";
 
         document.querySelector(".createNewListBtn").style.display = "block";
         document.querySelector(".updateNewListBtn").style.display = "none";
-=======
-        document.getElementById('createListHeading').style.display = 'block'
-        document.getElementById('updateListHeading').style.display = 'none'
-
-        document.querySelector('.createNewListBtn').style.display = 'block'
-        document.querySelector('.updateNewListBtn').style.display = 'none'
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 
         document.querySelectorAll(".colorTag").forEach((ele) => {
           ele.classList.remove("colorTagSelected");
@@ -5876,16 +5711,9 @@ let modalInterval = setInterval(() => {
       .querySelector(".updateNewListBtn")
       .addEventListener("click", createNewList);
   }
-<<<<<<< HEAD
 }, 100);
 
 function createNewList() {
-=======
-
-}, 100);
-
-function createNewList(){
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   let title = document.getElementById("listTitle").value;
   let description = document.getElementById("listDesc").value;
   let hex = document
@@ -5901,7 +5729,6 @@ function createNewList(){
 
     myToast.showToast();
   } else {
-<<<<<<< HEAD
     document.getElementById("createListModal").style.transform = "scale(0)";
     document.getElementById("createListModal").style.opacity = 0;
 
@@ -5916,24 +5743,6 @@ function createNewList(){
 
       const url = `${globalURl}/add_list`;
 
-=======
-    document.getElementById("createListModal").style.transform =
-      "scale(0)";
-    document.getElementById("createListModal").style.opacity = 0;
-
-    let editCheck = localStorage.getItem('editList');
-
-    if(!editCheck){
-
-      var second_user_id = localStorage.getItem("second_user_id");
-  
-      if (second_user_id != null) {
-        user_id = second_user_id;
-      }
-  
-      const url = `${globalURl}/add_list`;
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
       const xhr = new XMLHttpRequest();
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -5945,7 +5754,6 @@ function createNewList(){
           hex,
         })
       );
-<<<<<<< HEAD
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -5953,16 +5761,6 @@ function createNewList(){
 
           if (
             document.getElementById("list_table_view").style.display == "none"
-=======
-  
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          let response = JSON.parse(xhr.responseText);
-  
-          if (
-            document.getElementById("list_table_view").style.display ==
-            "none"
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
           ) {
             var test = setInterval(() => {
               showListing();
@@ -5970,19 +5768,13 @@ function createNewList(){
             }, 300);
           }
           if (
-<<<<<<< HEAD
             document.getElementById("list_table_view").style.display != "none"
-=======
-            document.getElementById("list_table_view").style.display !=
-            "none"
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
           ) {
             filterLisiting();
           }
         }
       };
     }
-<<<<<<< HEAD
     if (editCheck) {
       localStorage.removeItem("editList");
 
@@ -5990,15 +5782,6 @@ function createNewList(){
 
       const url = `${globalURl}/edit_list`;
 
-=======
-    if(editCheck){
-      localStorage.removeItem('editList');
-
-      let list_id = localStorage.getItem('list_id');
-
-      const url = `${globalURl}/edit_list`;
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
       const xhr = new XMLHttpRequest();
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -6010,7 +5793,6 @@ function createNewList(){
           hex,
         })
       );
-<<<<<<< HEAD
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -6022,26 +5804,11 @@ function createNewList(){
           }
         }
       };
-=======
-  
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          let response = JSON.parse(xhr.responseText);
-          
-          if(response.status == 'Updated'){
-            showListing();
-            localStorage.removeItem('list_id');
-          }
-
-        }
-      }
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     }
   }
 }
 
 function updateEditLists(e) {
-<<<<<<< HEAD
   localStorage.setItem("editList", true);
 
   let currentList = e.currentTarget.parentElement;
@@ -6057,46 +5824,20 @@ function updateEditLists(e) {
   document.getElementById("listDesc").value = listDesc;
 
   localStorage.setItem("list_id", list_id);
-=======
-  localStorage.setItem('editList', true);
-  
-  let currentList = e.currentTarget.parentElement;
-
-  let list_id = currentList.getAttribute('data-id');
-
-  let list_content = currentList.querySelector('.listContent').innerText;
-
-  let listDesc = currentList.querySelector('.listDesc1').value;
-
-  document.getElementById('listTitle').value = list_content;
-
-  document.getElementById("listDesc").value = listDesc;
-
-  localStorage.setItem('list_id', list_id);
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 
   document.getElementById("createListModal").style.transform = "scale(1)";
   document.getElementById("createListModal").style.opacity = 1;
 
-<<<<<<< HEAD
   document.getElementById("createListHeading").style.display = "none";
   document.getElementById("updateListHeading").style.display = "block";
 
   document.querySelector(".createNewListBtn").style.display = "none";
   document.querySelector(".updateNewListBtn").style.display = "block";
-=======
-  document.getElementById('createListHeading').style.display = 'none'
-  document.getElementById('updateListHeading').style.display = 'block'
-
-  document.querySelector('.createNewListBtn').style.display = 'none'
-  document.querySelector('.updateNewListBtn').style.display = 'block'
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 
   document.querySelectorAll(".colorTag").forEach((ele) => {
     ele.classList.remove("colorTagSelected");
   });
 
-<<<<<<< HEAD
   let colorHex = currentList.getAttribute("data-hex");
 
   document.querySelectorAll(".colorTag").forEach((ele) => {
@@ -6104,15 +5845,6 @@ function updateEditLists(e) {
       ele.classList.add("colorTagSelected");
     }
   });
-=======
-  let colorHex = currentList.getAttribute('data-hex');
-
-  document.querySelectorAll('.colorTag').forEach(ele => {
-    if(ele.getAttribute('data-color-value') == colorHex){
-      ele.classList.add("colorTagSelected");
-    }
-  })
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 }
 
 let deleteListInterval = setInterval(() => {
@@ -6153,27 +5885,17 @@ if (document.querySelector(".swipeRightContainer")) {
     .addEventListener("click", swipeRightContainer);
 }
 
-<<<<<<< HEAD
 let swipeArray = [0, 200, 400, 650];
-=======
-let swipeArray = [0 ,200, 400, 650];
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 let count = 0;
 
 function swipeRightContainer() {
   let viewtype = document.getElementById("view_type");
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   if (viewtype.checked == true) {
     count++;
 
     if (count == swipeArray.length) {
       count = swipeArray.length - 1;
     }
-<<<<<<< HEAD
 
     let listView = document.getElementById("items-container-1");
     listView.scroll(swipeArray[count], 0);
@@ -6186,22 +5908,6 @@ function swipeRightContainer() {
 
     let listView = document.getElementById("items-container");
     listView.scroll(swipeArray[count], 0);
-=======
-  
-    let listView = document.getElementById("items-container-1");
-    listView.scroll(swipeArray[count], 0);    
-    
-  } else {
-    count++;
-    
-    if (count == swipeArray.length) {
-      count = swipeArray.length - 1;
-    }
-    
-    let listView = document.getElementById("items-container");
-    listView.scroll(swipeArray[count], 0);    
-
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
   }
 }
 
@@ -6221,29 +5927,16 @@ function swipeLeftContainer() {
     listView.scroll(swipeArray[count], 0);
 
     if (count <= 0) {
-<<<<<<< HEAD
       count = 0;
     }
   } else {
     count--;
 
-=======
-      count = 0 ;
-    }
-
-  } else {
-    count--;
-    
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     let listView = document.getElementById("items-container");
     listView.scroll(swipeArray[count], 0);
 
     if (count <= 0) {
-<<<<<<< HEAD
       count = 0;
-=======
-      count = 0 ;
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
     }
   }
 }
@@ -6352,11 +6045,7 @@ function filterLisiting() {
         });
 
         let lists = JSON.parse(localStorage.getItem("lists"));
-<<<<<<< HEAD
         if (!lists) {
-=======
-        if(!lists){
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
           lists = JSON.parse(localStorage.getItem("currentUserlists"));
         }
         if (lists) {
@@ -6397,21 +6086,12 @@ function checkFilterList(e) {
       .getAttribute("data-hex");
     let title = e.currentTarget.querySelector(".listContent").innerText;
 
-<<<<<<< HEAD
     let user_id = localStorage.getItem("user_id");
     let second_user_id = localStorage.getItem("second_user_id");
 
     listArr.push({ id: listId, hex: color, title });
 
     if (user_id == second_user_id || !second_user_id) {
-=======
-    let user_id = localStorage.getItem('user_id');
-    let second_user_id = localStorage.getItem('second_user_id');
-
-    listArr.push({ id: listId, hex: color, title });
-
-    if(user_id == second_user_id || !second_user_id){
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
       globalCurrentUserList.push({ id: listId, hex: color, title, user_id });
       let newListArr1 = [...new Set(globalCurrentUserList)];
       localStorage.setItem("currentUserlists", JSON.stringify(newListArr1));
@@ -6462,21 +6142,12 @@ if (document.getElementById("listFilterReset")) {
     localStorage.removeItem("lists");
     listArr = [];
 
-<<<<<<< HEAD
     let user_id = localStorage.getItem("user_id");
     let second_user_id = localStorage.getItem("second_user_id");
 
     if (user_id == second_user_id || !second_user_id) {
       localStorage.removeItem("currentUserlists");
     }
-=======
-    let user_id = localStorage.getItem('user_id');
-    let second_user_id = localStorage.getItem('second_user_id');
-
-    if(user_id == second_user_id || !second_user_id){
-      localStorage.removeItem("currentUserlists");
-    }    
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 
     document.getElementById("listItemContainer").style.display = "none";
     document.querySelectorAll(".listToggleBox1").forEach((ele) => {
@@ -6485,7 +6156,6 @@ if (document.getElementById("listFilterReset")) {
   });
 }
 
-<<<<<<< HEAD
 let listLocal = JSON.parse(localStorage.getItem("currentUserlists"));
 
 if (listLocal?.length > 0) {
@@ -6497,20 +6167,6 @@ if (listLocal?.length > 0) {
   listLocal?.length > 0 &&
     listLocal.slice(0, 4).map((obj) => {
       if (second_user_id == obj.user_id || !second_user_id) {
-=======
-let listLocal = JSON.parse(localStorage.getItem('currentUserlists'))
-
-if(listLocal?.length > 0){
-
-  document.getElementById("listItemContainer").style.display = 'block';
-  document.getElementById("listItemContainer").innerHTML = "";
-
-  let second_user_id = localStorage.getItem('second_user_id');
-
-  listLocal?.length > 0 &&
-    listLocal.slice(0, 4).map((obj) => {
-      if(second_user_id == obj.user_id || !second_user_id){
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         document.getElementById("listItemContainer").innerHTML += `
         <span class="text-right1" data-listId=${obj.id} data-hex=${
           obj.hex
@@ -6518,39 +6174,23 @@ if(listLocal?.length > 0){
           obj.title.length > 6 ? `${obj.title.slice(0, 8)}...` : obj.title
         }</span>
       `;
-<<<<<<< HEAD
       } else {
         document.getElementById("listItemContainer").style.display = "none";
-=======
-      }
-      else{
-        document.getElementById("listItemContainer").style.display = 'none';
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
         document.getElementById("listItemContainer").innerHTML = "";
         ArrayMaker();
       }
 
       let listToggleBoxInterval = setInterval(() => {
-<<<<<<< HEAD
         if (document.querySelector(".listToggleBox1")) {
           clearInterval(listToggleBoxInterval);
-=======
-        if(document.querySelector('.listToggleBox1')){
-          clearInterval(listToggleBoxInterval)
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
           document.querySelectorAll(".listToggleBox1").forEach((ele) => {
             if (ele.getAttribute("data-listId") == obj.id) {
               ele.classList.add("listToggleBox1Checked");
             }
           });
         }
-<<<<<<< HEAD
       }, 100);
     });
-=======
-      }, 100)
-    }); 
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
 }
 
 let deleteListInterval1 = setInterval(() => {
@@ -6585,7 +6225,6 @@ let deleteListInterval1 = setInterval(() => {
     });
   });
 }, 1000);
-<<<<<<< HEAD
 
 document
   .getElementById("shareInSubGroups")
@@ -6721,5 +6360,3 @@ function shareProspectInSubGroup() {
     myToast.showToast();
   }
 }
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba

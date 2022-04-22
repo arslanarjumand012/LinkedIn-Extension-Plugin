@@ -264,19 +264,12 @@ function topbaricons() {
         userData.groups.slice(0, 3).map((item, i, arr) => {
           document.querySelector(".new_header_right_imgs").innerHTML += `
             <div class="smallgroupBox" data-group_id=${item.group_id}>
-<<<<<<< HEAD
             <span class="tooltiptext">${item.group_name}</span>
-=======
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
             ${
               item.notifications != 0
                 ? `<div class="countNum">${item.notifications}</div>`
                 : ""
-<<<<<<< HEAD
               }
-=======
-            }
->>>>>>> caf3a5a1e4aac2aec578bff7d5211714ce6befba
               ${item.members
                 .slice(0, 4)
                 .map((ele) => {
