@@ -3709,7 +3709,14 @@ function updateGroupName() {
 if (document.getElementById("deleteBox")) {
   document
     .getElementById("deleteBox")
-    .addEventListener("click", groupDeleteion);
+    .addEventListener("click", () => {
+      if(localStorage.getItem('sub_group_id')){
+        subGroupDeleteion();
+      }
+      else{
+        groupDeleteion();
+      }
+    });
 }
 
 function groupDeleteion(e) {
@@ -4803,7 +4810,14 @@ if (document.getElementById("membersBox")) {
 if (document.getElementById("prospectBox")) {
   document
     .getElementById("prospectBox")
-    .addEventListener("click", dynamicModalOpenP);
+    .addEventListener("click", () => {
+      if(localStorage.getItem('sub_group_id')){
+        openSubGroupMembersModal();
+      }
+      else{
+        dynamicModalOpenP();
+      }
+    });
 }
 
 if (document.getElementById("showprospectDiv")) {
@@ -4999,6 +5013,10 @@ function showProspectChat(e) {
   localStorage.removeItem("nullGroupChat");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.removeItem("sub_group_id");
+  localStorage.removeItem("sub_group_name");
+
+  document.getElementById('subGroupNamePara').style.display = 'none'
 
   document.querySelector(".dynamicContainer").innerHTML = "";
   prospectModalClose();
@@ -5374,7 +5392,14 @@ function showProspectChat(e) {
 }
 
 if (document.getElementById("DMBox")) {
-  document.getElementById("DMBox").addEventListener("click", showNullChats);
+  document.getElementById("DMBox").addEventListener("click", () => {
+    if(localStorage.getItem('sub_group_id')){
+      nullSubGroupChats();
+    }
+    else{
+      showNullChats();
+    }
+  });
 }
 
 function openGroupThreeDotMenu(e) {
@@ -5768,6 +5793,10 @@ function showNullChats() {
   localStorage.setItem("nullGroupChat", true);
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.removeItem("sub_group_id");
+  localStorage.removeItem("sub_group_name");
+
+  document.getElementById('subGroupNamePara').style.display = 'none'
 
   prospectModalClose();
   dynamicModalClose();
@@ -6483,8 +6512,6 @@ function openSubGroupModal() {
 function subGroupDeleteion(e) {
   let sub_group_id = "";
 
-  console.log(e.currentTarget);
-
   if (localStorage.getItem("sub_group_id")) {
     sub_group_id = localStorage.getItem("sub_group_id");
   } else {
@@ -6506,8 +6533,12 @@ function subGroupDeleteion(e) {
       let userData = JSON.parse(xhr.responseText);
 
       if ((userData.status = "Deleted")) {
+        document.getElementById("settingModal").style.transform = "scale(0)";
+        document.getElementById("settingModal").style.opacity = "0";
+
         document.getElementById("subGroupModal").style.transform = "scale(0)";
         document.getElementById("subGroupModal").style.opacity = "0";
+
         var myToast = Toastify({
           text: "Sub Group deleted successfully",
           duration: 2000,
@@ -6516,6 +6547,14 @@ function subGroupDeleteion(e) {
         myToast.showToast();
 
         openSubGroupModal();
+
+        document.getElementById('nullHeading').style.display = 'flex';
+
+        document.querySelector('.rightProspectBox').style.display = 'none';
+        document.querySelector('.rightUpperBox').style.display = 'none';
+        document.querySelector('.chatMessageContent').style.display = 'none';
+        document.querySelector('.chatControlBtn').style.display = 'none';
+        document.querySelector('.groupContainer').style.display = 'none';
       }
     }
   } 
@@ -6793,8 +6832,10 @@ function showSubGroupProspectChat(e) {
       }
 
       if (userData.admin == true) {
+        document.getElementById('deleteBox').innerText = 'Delete Sub Group';
         document.getElementById("deleteBox").style.display = "flex";
       } else {
+        document.getElementById('deleteBox').innerText = 'Delete Group';
         document.getElementById("deleteBox").style.display = "none";
       }
 
@@ -7133,6 +7174,14 @@ function nullSubGroupChats() {
 
       groupUsersArr = userData.users;
 
+      if (userData.admin == true) {
+        document.getElementById('deleteBox').innerText = 'Delete Sub Group';
+        document.getElementById("deleteBox").style.display = "flex";
+      } else {
+        document.getElementById('deleteBox').innerText = 'Delete Group';
+        document.getElementById("deleteBox").style.display = "none";
+      }
+
       document.getElementById(
         "groupNamePara"
       ).innerHTML = `<span style='color: #084DD1;'>Group Name: </span>${
@@ -7166,10 +7215,10 @@ function nullSubGroupChats() {
       <button id="showSubGroupDirectBox">Group Chat</button>
       `;
 
-      if (userData.data) {
+      if (userData) {
         let chatMessageContent = document.querySelector(".chatMessageContent");
         chatMessageContent.innerHTML = "";
-        userData.data.map((obj, i) => {
+        userData.data?.map((obj, i) => {
           if (obj.text != null) {
             if (obj.sender_id == user_id) {
               let dbTime = obj.created_at;
