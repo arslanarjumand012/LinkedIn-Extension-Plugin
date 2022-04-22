@@ -507,6 +507,7 @@ function fetchGroupInfo() {
   localStorage.removeItem("sub_group_id");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.removeItem("sub_group")
 
   document.getElementById("subGroupNamePara").style.display = "none";
 
@@ -1022,6 +1023,7 @@ function openProspectPage(e) {
 function activeUserChat(e) {
   localStorage.removeItem("group_id");
   localStorage.removeItem("replied_id");
+  localStorage.removeItem("sub_group")
 
   var receiver_id = e.target.getAttribute("data-receiverId");
 
@@ -1930,6 +1932,7 @@ function openModal1() {
 function openModal2() {
   modalContainer2.style.transform = "scale(1)";
   modalContainer2.style.opacity = 1;
+  document.querySelector(".startChartBtn1").innerText = 'Create Group'
 }
 function openModal100() {
   localStorage.setItem("sub_group", true);
@@ -3769,7 +3772,7 @@ function sendGroupInfo() {
   });
   sub_group = localStorage.getItem("sub_group");
   if (sub_group) {
-    if (userArray.length > 1) {
+    if (userArray.length >= 1) {
       let groupName = document.getElementById("groupName").value;
 
       if (groupName != "") {
@@ -3819,6 +3822,8 @@ function sendGroupInfo() {
               groupUsersArr.push(obj.email);
             });
 
+            localStorage.removeItem("sub_group")
+
             localStorage.setItem("group_id", userMessages.group_id);
             localStorage.setItem("group_name", userMessages.group_name);
             closeModal2();
@@ -3838,9 +3843,19 @@ function sendGroupInfo() {
             document.getElementById(
               "groupNamePara"
             ).innerHTML = `<span style='color: #084DD1;'>Group Name: </span>${
-              userMessages.group_name.length > 10
+              userMessages.group_name?.length > 10
                 ? `${userMessages.group_name.slice()} ...`
                 : userMessages.group_name
+            }`;
+
+            document.getElementById('subGroupNamePara').style.display = 'block';
+
+            document.getElementById(
+              "subGroupNamePara"
+            ).innerHTML = `<span style='color: #084DD1;'>Sub Group Name: </span>${
+              userMessages.sub_group_name?.length > 10
+                ? `${userMessages.sub_group_name.slice()} ...`
+                : userMessages.sub_group_name
             }`;
 
             document.querySelector(".rightBox").style.display = "block";
@@ -3872,6 +3887,8 @@ function sendGroupInfo() {
             <button id="showSubGroupProspectBox">Prospects</button>
             <button id="showSubGroupDirectBox">Group Chat</button>
             `;
+
+            localStorage.setItem('sub_group_id', userMessages.sub_group_id);
 
             if (userMessages.data) {
               userMessages.data.slice(0, 4).map((obj, i) => {
