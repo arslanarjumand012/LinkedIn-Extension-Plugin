@@ -885,7 +885,8 @@
         }
 
         #deleteBox,
-        #editBox {
+        #editBox,
+        #subGroupEditBox {
             line-height: 20px;
         }
 
@@ -922,7 +923,7 @@
             z-index: 100;
         }
 
-        .deleteGroupBox {
+        .deleteGroupBox, .deleteSubGroupBox {
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -938,7 +939,11 @@
             font-size: 12px;
         }
 
-        .leaveGroupBox {
+        .deleteSubGroupBox{
+            right: 0%;
+        }
+
+        .leaveGroupBox, .leaveSubGroupBox {
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -1218,15 +1223,15 @@
             color: #000 !important;
             text-align: center;
             border-radius: 6px;
-            padding: 5px 10px;
+            padding: 5px 0px;
             font-size: 13px;
             font-weight: 700;
             display: block;
             word-break: break-all;
             position: absolute;
             z-index: 1;
-            top: 0%;
-            left: -10%;
+            top: 45%;
+            left: 0%;
         }
 
         .subGroupBox:hover .tooltiptext {
@@ -1495,7 +1500,8 @@
         }
 
         .createGroupBtn,
-        .updateGroupBtn {
+        .updateGroupBtn,
+        .createSubGroupBtn {
             width: 100%;
             height: 40px;
             background: #084DD1 0% 0% no-repeat padding-box;
@@ -1510,7 +1516,8 @@
         }
 
         .createGroupBtn:hover,
-        .updateGroupBtn:hover {
+        .updateGroupBtn:hover,
+        .createSubGroupBtn:hover {
             background: #07368f 0% 0% no-repeat padding-box;
         }
 
@@ -1744,7 +1751,7 @@
             border-radius: 50%;
         }
 
-        .groupDeleteIcon {
+        .groupDeleteIcon, .subGroupDeleteIcon {
             font-size: 14px;
             color: red;
             cursor: pointer;
@@ -2193,6 +2200,8 @@
 
                             <div class="settingBox" id="editBox">Change Group Name</div>
 
+                            <div class="settingBox" id="subGroupEditBox" style="display: none;">Change Sub Group Name</div>
+
                             <div class="settingBox" id="deleteBox" style="display: none;">Delete Group</div>
 
                         </div>
@@ -2309,6 +2318,31 @@
 
                 <button type="button" class="createGroupBtn">Create</button>
                 <button type="button" class="updateGroupBtn" style="display: none;">Update</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="nameModal" id="subGroupNameModal">
+
+        <div class="nameModalContainer">
+
+            <div class="upperRow">
+                <h1>Enter Name for a sub group</h1>
+
+                <div class="closeDiv" id='subGroupNameModalCloseBtn'>
+                    <img src="./Assets/img/close.png" alt="">
+                </div>
+
+            </div>
+
+            <div class="nameMainContentContainer">
+
+                <input type="text" class="nameBox" id="subGroupName" placeholder="Enter Sub Group Name">
+
+                <button type="button" class="createSubGroupBtn">Update</button>
 
             </div>
 

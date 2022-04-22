@@ -1945,6 +1945,8 @@ function openModal100() {
 
   mainContentContainer.innerHTML = ``;
 
+  document.getElementById('groupName').value = '';
+
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
 
@@ -3824,8 +3826,13 @@ function sendGroupInfo() {
 
             localStorage.removeItem("sub_group")
 
+            document.getElementById("editBox").style.display = 'none';
+            document.getElementById("subGroupEditBox").style.display = 'flex';
+
             localStorage.setItem("group_id", userMessages.group_id);
             localStorage.setItem("group_name", userMessages.group_name);
+            localStorage.setItem("sub_group_name", userMessages.sub_group_name);
+
             closeModal2();
 
             document.getElementById("prospectImage").src =
@@ -3976,10 +3983,14 @@ function sendGroupInfo() {
             userMessages.data?.map((obj) => {
               groupUsersArr.push(obj.email);
             });
+            
+            document.getElementById("editBox").style.display = 'flex';
+            document.getElementById("subGroupEditBox").style.display = 'none';
 
             localStorage.setItem("group_id", userMessages.group_id);
             localStorage.setItem("group_name", userMessages.group_name);
             closeModal2();
+
 
             document.getElementById("prospectImage").src =
               "./Assets/img/user.png";
@@ -5007,6 +5018,9 @@ function showProspectChat(e) {
 
   document.getElementById("msgInp").value = "";
 
+  document.getElementById("editBox").style.display = 'flex';
+  document.getElementById("subGroupEditBox").style.display = 'none';
+
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
 
@@ -5774,6 +5788,9 @@ function showNullChats() {
 
   document.getElementById("msgInp").value = "";
 
+  document.getElementById("editBox").style.display = 'flex';
+  document.getElementById("subGroupEditBox").style.display = 'none';
+
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
 
@@ -6350,8 +6367,6 @@ function groupleaveion(e) {
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
 
-  // document.querySelector(".imgContainer").innerHTML = "";
-
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let userData = JSON.parse(xhr.responseText);
@@ -6412,7 +6427,7 @@ function openSubGroupModal() {
           document.querySelector(".subGroupContainer").innerHTML += `
                 <div style="position: relative;margin-left: 10px;">
 
-                <div class="subGroupBox" data-sub-group_id=${item.sub_group_id}>
+                <div class="subGroupBox" data-sub_group_id=${item.sub_group_id}>
                 <span class="tooltiptext"><span style="color:red">Name: </span>${
                   item.name
                 }
@@ -6433,10 +6448,10 @@ function openSubGroupModal() {
                   }</div>
                   ${
                     item.admin != false
-                      ? `<div class="deleteGroupBox"><i class="fas fa-trash groupDeleteIcon"></i></div>`
+                      ? `<div class="deleteSubGroupBox"><i class="fas fa-trash subGroupDeleteIcon"></i></div>`
                       : ""
                   }
-                  <div class="leaveGroupBox"><i class="fas fa-user-minus"></i></div>
+                  <div class="leaveSubGroupBox"><i class="fas fa-user-minus"></i></div>
                 </div>
             `;
         });
@@ -6444,21 +6459,104 @@ function openSubGroupModal() {
           ele.addEventListener("click", () => {
             localStorage.setItem(
               "sub_group_id",
-              ele.getAttribute("data-sub-group_id")
+              ele.getAttribute("data-sub_group_id")
             );
+
             openSubGroupMembersModal();
           });
         });
 
-        // document.querySelectorAll(".deleteGroupBox").forEach((ele) => {
-        //   ele.addEventListener("click", groupDeleteion);
-        // });
-        // document.querySelectorAll(".leaveGroupBox").forEach((ele) => {
-        //   ele.addEventListener("click", groupleaveion);
-        // });
+        document.querySelectorAll(".deleteSubGroupBox").forEach((ele) => {
+          ele.addEventListener("click", subGroupDeleteion);
+        });
+        document.querySelectorAll(".leaveSubGroupBox").forEach((ele) => {
+          ele.addEventListener("click", subGroupleaveion);
+        });
       } else {
         document.querySelector(".subGroupContainer").innerHTML =
           "<h1 class='groupNullHeading'>No sub groups to show</h1>";
+      }
+    }
+  };
+}
+
+function subGroupDeleteion(e) {
+  let sub_group_id = "";
+
+  console.log(e.currentTarget);
+
+  if (localStorage.getItem("sub_group_id")) {
+    sub_group_id = localStorage.getItem("sub_group_id");
+  } else {
+    sub_group_id = e.currentTarget.parentElement
+      .querySelector(".subGroupBox")
+      .getAttribute("data-sub_group_id");
+  }
+
+  const url = `${globalURl}/delete_sub_group/${sub_group_id}`;
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send();
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let userData = JSON.parse(xhr.responseText);
+
+      if ((userData.status = "Deleted")) {
+        document.getElementById("subGroupModal").style.transform = "scale(0)";
+        document.getElementById("subGroupModal").style.opacity = "0";
+        var myToast = Toastify({
+          text: "Sub Group deleted successfully",
+          duration: 2000,
+        });
+
+        myToast.showToast();
+
+        openSubGroupModal();
+      }
+    }
+  } 
+}
+
+function subGroupleaveion(e) {
+  let sub_group_id = "";
+
+  if (localStorage.getItem("sub_group_id")) {
+    sub_group_id = localStorage.getItem("sub_group_id");
+  } else {
+    sub_group_id = e.currentTarget.parentElement
+      .querySelector(".subGroupBox")
+      .getAttribute("data-sub_group_id");
+  }
+
+  let user_id = localStorage.getItem("user_id");
+
+  const url = `${globalURl}/leave_sub_group/${sub_group_id}/${user_id}`;
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send();
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let userData = JSON.parse(xhr.responseText);
+
+      if ((userData.status = "Deleted")) {
+        document.getElementById("subGroupModal").style.transform = "scale(0)";
+        document.getElementById("subGroupModal").style.opacity = "0";
+        var myToast = Toastify({
+          text: "Group left successfully",
+          duration: 2000,
+        });
+
+        myToast.showToast();
+
+        openSubGroupModal();
       }
     }
   };
@@ -6601,6 +6699,9 @@ function showSubGroupProspectChat(e) {
 
   document.getElementById("msgInp").value = "";
 
+  document.getElementById("editBox").style.display = 'none';
+  document.getElementById("subGroupEditBox").style.display = 'flex';
+
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
   var sub_group_id = localStorage.getItem("sub_group_id");
@@ -6631,7 +6732,7 @@ function showSubGroupProspectChat(e) {
       document.getElementById("sendSubGroupMsgBtn").style.display = "block";
       document.querySelector(".rightProspectBox").style.display = "flex";
 
-      document.querySelector(".chatMessageContent").style.height = "240px";
+      document.querySelector(".chatMessageContent").style.height = "220px";
 
       let chatMessageContent = document.querySelector(".chatMessageContent");
 
@@ -6656,6 +6757,17 @@ function showSubGroupProspectChat(e) {
           ? `${userData.group_name.slice()} ...`
           : userData.group_name
       }`;
+
+      document.getElementById("subGroupNamePara").style.display = "block";
+
+      document.getElementById(
+        "subGroupNamePara"
+      ).innerHTML = `<span style='color: #084DD1;'>Sub Group Name: </span>${
+        userData.sub_group_name?.length > 10
+          ? `${userData.sub_group_name.slice()} ...`
+          : userData.sub_group_name
+      }`;
+
       document.getElementById("dbNameMessage").innerText = `${
         userData.sender_name != null ? `Clipper: ${userData.sender_name}` : ""
       }`;
@@ -6674,6 +6786,10 @@ function showSubGroupProspectChat(e) {
 
       if (userData.group_name) {
         localStorage.setItem("group_name", userData.group_name);
+      }
+
+      if (userData.sub_group_name) {
+        localStorage.setItem("sub_group_name", userData.sub_group_name);
       }
 
       if (userData.admin == true) {
@@ -6978,6 +7094,9 @@ function nullSubGroupChats() {
   document.getElementById("dbNameMessagesecond").innerText = "";
   document.getElementById("prospectImage").setAttribute("data-link", "");
 
+  document.getElementById("editBox").style.display = 'none';
+  document.getElementById("subGroupEditBox").style.display = 'flex';
+
   document.querySelector(".groupDiv").classList.remove("groupDivClicked");
 
   document.getElementById("msgInp").value = "";
@@ -7031,6 +7150,14 @@ function nullSubGroupChats() {
           ? `${userData.sub_group_name.slice()} ...`
           : userData.sub_group_name
       }`;
+
+      if (userData.group_name) {
+        localStorage.setItem("group_name", userData.group_name);
+      }
+
+      if (userData.sub_group_name) {
+        localStorage.setItem("sub_group_name", userData.sub_group_name);
+      }
 
       document.querySelector(".showBtnContainer").innerHTML = "";
       document.querySelector(".showBtnContainer").innerHTML = `
@@ -7972,5 +8099,83 @@ function send_sub_group_message() {
     //     }
     //   };
     // }
+  }
+}
+
+if(document.getElementById("subGroupEditBox")) {
+  document.getElementById("subGroupEditBox").addEventListener("click", openSubGroupNameModal)
+}
+
+function openSubGroupNameModal() {
+  document.getElementById("subGroupNameModal").style.transform = "scale(1)";
+  document.getElementById("subGroupNameModal").style.opacity = "1";
+}
+
+if(document.getElementById('subGroupNameModalCloseBtn')){
+  document.getElementById('subGroupNameModalCloseBtn').addEventListener('click', closeSubGroupNameModal)
+}
+
+function closeSubGroupNameModal() {
+  document.getElementById("subGroupNameModal").style.transform = "scale(0)";
+  document.getElementById("subGroupNameModal").style.opacity = "0";
+}
+
+if(document.querySelector('.createSubGroupBtn')){
+  document.querySelector('.createSubGroupBtn').addEventListener('click', updateSubGroupName)
+}
+
+function updateSubGroupName() {
+  let sub_group_name = document.getElementById("subGroupName").value;
+  let sub_group_id = localStorage.getItem("sub_group_id");
+
+  if (sub_group_name != "") {
+    const url = `${globalURl}/edit_sub_group_name`;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(
+      JSON.stringify({
+        id: sub_group_id,
+        name: sub_group_name,
+      })
+    );
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        let userData = JSON.parse(xhr.responseText);
+
+        if (userData.status == "Updated") {
+          localStorage.setItem("sub_group_name", sub_group_name);
+
+          var myToast = Toastify({
+            text: "Sub Group name changed successfully",
+            duration: 2000,
+          });
+
+          myToast.showToast();
+
+          closeSubGroupNameModal();
+
+          document.getElementById(
+            "subGroupNamePara"
+          ).innerHTML = `<span style='color: #084DD1;'>Sub Group Name: </span>${
+            userData.name?.length > 10
+              ? `${userData.name.slice()} ...`
+              : userData.name
+          }`;
+
+          document.getElementById("subGroupName").value = "";
+        }
+      }
+    };
+  } else {
+    var myToast = Toastify({
+      text: "Sub Group must have a name",
+      duration: 2000,
+    });
+
+    myToast.showToast();
   }
 }
