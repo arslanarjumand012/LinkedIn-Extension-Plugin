@@ -7,6 +7,7 @@ localStorage.removeItem("prospect_id1");
 localStorage.removeItem("replied_id");
 localStorage.removeItem("message_id");
 localStorage.removeItem("nullGroupChat");
+localStorage.removeItem('nullSubGroupChat')
 localStorage.removeItem("dmNullChats");
 localStorage.removeItem("group_name");
 localStorage.removeItem("editGroupName");
@@ -507,7 +508,8 @@ function fetchGroupInfo() {
   localStorage.removeItem("sub_group_id");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
-  localStorage.removeItem("sub_group")
+  localStorage.removeItem("sub_group");
+  localStorage.removeItem('nullSubGroupChat')
 
   document.getElementById("subGroupNamePara").style.display = "none";
 
@@ -1023,7 +1025,7 @@ function openProspectPage(e) {
 function activeUserChat(e) {
   localStorage.removeItem("group_id");
   localStorage.removeItem("replied_id");
-  localStorage.removeItem("sub_group")
+  localStorage.removeItem("sub_group");
 
   var receiver_id = e.target.getAttribute("data-receiverId");
 
@@ -1187,6 +1189,7 @@ function showProspectChatMember(e) {
   localStorage.removeItem("sub_group_id");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.removeItem('nullSubGroupChat')
 
   document.getElementById("nullHeading").style.display = "none";
   document.querySelector(".dynamicContainer").innerHTML = "";
@@ -1226,7 +1229,9 @@ function showProspectChatMember(e) {
 
     if (ele.getAttribute("data-receiverid") == receiver_id) {
       document.querySelector(".leftBox__container").innerHTML = "";
-      getChats();
+      setTimeout(() => {
+        getChats();
+      }, 500);
     }
   });
 
@@ -1237,11 +1242,6 @@ function showProspectChatMember(e) {
         document.querySelectorAll(".userIcon").forEach((item) => {
           if (item.getAttribute("data-receiverid") == receiver_id) {
             item.classList.add("userClicked");
-            let parentElement = item.parentElement;
-
-            if (parentElement.querySelector(".chatNotificationBox")) {
-              parentElement.querySelector(".chatNotificationBox").remove();
-            }
           }
         });
       }
@@ -1932,7 +1932,7 @@ function openModal1() {
 function openModal2() {
   modalContainer2.style.transform = "scale(1)";
   modalContainer2.style.opacity = 1;
-  document.querySelector(".startChartBtn1").innerText = 'Create Group'
+  document.querySelector(".startChartBtn1").innerText = "Create Group";
 }
 function openModal100() {
   localStorage.setItem("sub_group", true);
@@ -1945,7 +1945,7 @@ function openModal100() {
 
   mainContentContainer.innerHTML = ``;
 
-  document.getElementById('groupName').value = '';
+  document.getElementById("groupName").value = "";
 
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
@@ -3707,16 +3707,13 @@ function updateGroupName() {
 }
 
 if (document.getElementById("deleteBox")) {
-  document
-    .getElementById("deleteBox")
-    .addEventListener("click", () => {
-      if(localStorage.getItem('sub_group_id')){
-        subGroupDeleteion();
-      }
-      else{
-        groupDeleteion();
-      }
-    });
+  document.getElementById("deleteBox").addEventListener("click", () => {
+    if (localStorage.getItem("sub_group_id")) {
+      subGroupDeleteion();
+    } else {
+      groupDeleteion();
+    }
+  });
 }
 
 function groupDeleteion(e) {
@@ -3831,10 +3828,10 @@ function sendGroupInfo() {
               groupUsersArr.push(obj.email);
             });
 
-            localStorage.removeItem("sub_group")
+            localStorage.removeItem("sub_group");
 
-            document.getElementById("editBox").style.display = 'none';
-            document.getElementById("subGroupEditBox").style.display = 'flex';
+            document.getElementById("editBox").style.display = "none";
+            document.getElementById("subGroupEditBox").style.display = "flex";
 
             localStorage.setItem("group_id", userMessages.group_id);
             localStorage.setItem("group_name", userMessages.group_name);
@@ -3862,7 +3859,7 @@ function sendGroupInfo() {
                 : userMessages.group_name
             }`;
 
-            document.getElementById('subGroupNamePara').style.display = 'block';
+            document.getElementById("subGroupNamePara").style.display = "block";
 
             document.getElementById(
               "subGroupNamePara"
@@ -3902,7 +3899,7 @@ function sendGroupInfo() {
             <button id="showSubGroupDirectBox">Group Chat</button>
             `;
 
-            localStorage.setItem('sub_group_id', userMessages.sub_group_id);
+            localStorage.setItem("sub_group_id", userMessages.sub_group_id);
 
             if (userMessages.data) {
               userMessages.data.slice(0, 4).map((obj, i) => {
@@ -3990,14 +3987,13 @@ function sendGroupInfo() {
             userMessages.data?.map((obj) => {
               groupUsersArr.push(obj.email);
             });
-            
-            document.getElementById("editBox").style.display = 'flex';
-            document.getElementById("subGroupEditBox").style.display = 'none';
+
+            document.getElementById("editBox").style.display = "flex";
+            document.getElementById("subGroupEditBox").style.display = "none";
 
             localStorage.setItem("group_id", userMessages.group_id);
             localStorage.setItem("group_name", userMessages.group_name);
             closeModal2();
-
 
             document.getElementById("prospectImage").src =
               "./Assets/img/user.png";
@@ -4808,16 +4804,13 @@ if (document.getElementById("membersBox")) {
 }
 
 if (document.getElementById("prospectBox")) {
-  document
-    .getElementById("prospectBox")
-    .addEventListener("click", () => {
-      if(localStorage.getItem('sub_group_id')){
-        openSubGroupMembersModal();
-      }
-      else{
-        dynamicModalOpenP();
-      }
-    });
+  document.getElementById("prospectBox").addEventListener("click", () => {
+    if (localStorage.getItem("sub_group_id")) {
+      openSubGroupMembersModal();
+    } else {
+      dynamicModalOpenP();
+    }
+  });
 }
 
 if (document.getElementById("showprospectDiv")) {
@@ -5015,8 +5008,9 @@ function showProspectChat(e) {
   localStorage.removeItem("editGroupName");
   localStorage.removeItem("sub_group_id");
   localStorage.removeItem("sub_group_name");
+  localStorage.removeItem('nullSubGroupChat')
 
-  document.getElementById('subGroupNamePara').style.display = 'none'
+  document.getElementById("subGroupNamePara").style.display = "none";
 
   document.querySelector(".dynamicContainer").innerHTML = "";
   prospectModalClose();
@@ -5036,8 +5030,8 @@ function showProspectChat(e) {
 
   document.getElementById("msgInp").value = "";
 
-  document.getElementById("editBox").style.display = 'flex';
-  document.getElementById("subGroupEditBox").style.display = 'none';
+  document.getElementById("editBox").style.display = "flex";
+  document.getElementById("subGroupEditBox").style.display = "none";
 
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
@@ -5393,10 +5387,9 @@ function showProspectChat(e) {
 
 if (document.getElementById("DMBox")) {
   document.getElementById("DMBox").addEventListener("click", () => {
-    if(localStorage.getItem('sub_group_id')){
+    if (localStorage.getItem("sub_group_id")) {
       nullSubGroupChats();
-    }
-    else{
+    } else {
       showNullChats();
     }
   });
@@ -5795,8 +5788,9 @@ function showNullChats() {
   localStorage.removeItem("editGroupName");
   localStorage.removeItem("sub_group_id");
   localStorage.removeItem("sub_group_name");
+  localStorage.removeItem('nullSubGroupChat')
 
-  document.getElementById('subGroupNamePara').style.display = 'none'
+  document.getElementById("subGroupNamePara").style.display = "none";
 
   prospectModalClose();
   dynamicModalClose();
@@ -5817,8 +5811,8 @@ function showNullChats() {
 
   document.getElementById("msgInp").value = "";
 
-  document.getElementById("editBox").style.display = 'flex';
-  document.getElementById("subGroupEditBox").style.display = 'none';
+  document.getElementById("editBox").style.display = "flex";
+  document.getElementById("subGroupEditBox").style.display = "none";
 
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
@@ -6469,6 +6463,12 @@ function openSubGroupModal() {
                   })
                   .join("")}
                   
+                  ${
+                    item.notifications != 0
+                      ? `<div class="notificationBox">${item.notifications}</div> `
+                      : ""
+                  }
+
                   </div>
                   <div class="groupName">${
                     item.name.length > 10
@@ -6490,7 +6490,6 @@ function openSubGroupModal() {
               "sub_group_id",
               ele.getAttribute("data-sub_group_id")
             );
-
             openSubGroupMembersModal();
           });
         });
@@ -6548,16 +6547,16 @@ function subGroupDeleteion(e) {
 
         openSubGroupModal();
 
-        document.getElementById('nullHeading').style.display = 'flex';
+        document.getElementById("nullHeading").style.display = "flex";
 
-        document.querySelector('.rightProspectBox').style.display = 'none';
-        document.querySelector('.rightUpperBox').style.display = 'none';
-        document.querySelector('.chatMessageContent').style.display = 'none';
-        document.querySelector('.chatControlBtn').style.display = 'none';
-        document.querySelector('.groupContainer').style.display = 'none';
+        document.querySelector(".rightProspectBox").style.display = "none";
+        document.querySelector(".rightUpperBox").style.display = "none";
+        document.querySelector(".chatMessageContent").style.display = "none";
+        document.querySelector(".chatControlBtn").style.display = "none";
+        document.querySelector(".groupContainer").style.display = "none";
       }
     }
-  } 
+  };
 }
 
 function subGroupleaveion(e) {
@@ -6714,6 +6713,7 @@ function showSubGroupProspectChat(e) {
   localStorage.removeItem("nullGroupChat");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.removeItem('nullSubGroupChat')
 
   document.querySelector(".dynamicContainer").innerHTML = "";
 
@@ -6738,8 +6738,8 @@ function showSubGroupProspectChat(e) {
 
   document.getElementById("msgInp").value = "";
 
-  document.getElementById("editBox").style.display = 'none';
-  document.getElementById("subGroupEditBox").style.display = 'flex';
+  document.getElementById("editBox").style.display = "none";
+  document.getElementById("subGroupEditBox").style.display = "flex";
 
   var user_id = localStorage.getItem("user_id");
   var group_id = localStorage.getItem("group_id");
@@ -6832,10 +6832,10 @@ function showSubGroupProspectChat(e) {
       }
 
       if (userData.admin == true) {
-        document.getElementById('deleteBox').innerText = 'Delete Sub Group';
+        document.getElementById("deleteBox").innerText = "Delete Sub Group";
         document.getElementById("deleteBox").style.display = "flex";
       } else {
-        document.getElementById('deleteBox').innerText = 'Delete Group';
+        document.getElementById("deleteBox").innerText = "Delete Group";
         document.getElementById("deleteBox").style.display = "none";
       }
 
@@ -6923,11 +6923,11 @@ function showSubGroupProspectChat(e) {
                     <i class="far fa-ellipsis-v menuGroupIcon"></i>
 
                   <div class='menuBox' style="display: none">
-                    <div class='editContainer editGroupContainer'>
+                    <div class='editContainer editSubGroupContainer'>
                       <i class="far fa-edit"></i>
                       <h1>Edit</h1>
                     </div>
-                    <div class="deleteContainer deleteGroupContainer">
+                    <div class="deleteContainer deleteSubGroupContainer">
                       <i class="far fa-trash"></i>
                       <h1>Delete</h1>
                     </div>
@@ -6969,7 +6969,7 @@ function showSubGroupProspectChat(e) {
 
               setTimeout(() => {
                 document.querySelectorAll(".menuGroupIcon").forEach((ele) => {
-                  ele?.addEventListener("click", openGroupThreeDotMenu);
+                  ele?.addEventListener("click", openSubGroupThreeDotMenu);
                 });
               }, 100);
 
@@ -7115,6 +7115,7 @@ function nullSubGroupChats() {
   localStorage.removeItem("nullGroupChat");
   localStorage.removeItem("group_name");
   localStorage.removeItem("editGroupName");
+  localStorage.setItem('nullSubGroupChat', true)
 
   prospectModalClose();
   dynamicModalClose();
@@ -7135,8 +7136,8 @@ function nullSubGroupChats() {
   document.getElementById("dbNameMessagesecond").innerText = "";
   document.getElementById("prospectImage").setAttribute("data-link", "");
 
-  document.getElementById("editBox").style.display = 'none';
-  document.getElementById("subGroupEditBox").style.display = 'flex';
+  document.getElementById("editBox").style.display = "none";
+  document.getElementById("subGroupEditBox").style.display = "flex";
 
   document.querySelector(".groupDiv").classList.remove("groupDivClicked");
 
@@ -7175,10 +7176,10 @@ function nullSubGroupChats() {
       groupUsersArr = userData.users;
 
       if (userData.admin == true) {
-        document.getElementById('deleteBox').innerText = 'Delete Sub Group';
+        document.getElementById("deleteBox").innerText = "Delete Sub Group";
         document.getElementById("deleteBox").style.display = "flex";
       } else {
-        document.getElementById('deleteBox').innerText = 'Delete Group';
+        document.getElementById("deleteBox").innerText = "Delete Group";
         document.getElementById("deleteBox").style.display = "none";
       }
 
@@ -7293,11 +7294,11 @@ function nullSubGroupChats() {
                 <i class="far fa-ellipsis-v menuGroupIcon"></i>
 
               <div class='menuBox' style="display: none">
-                <div class='editContainer editGroupContainer'>
+                <div class='editContainer editSubGroupContainer'>
                   <i class="far fa-edit"></i>
                   <h1>Edit</h1>
                 </div>
-                <div class="deleteContainer deleteGroupContainer">
+                <div class="deleteContainer deleteSubGroupContainer">
                   <i class="far fa-trash"></i>
                   <h1>Delete</h1>
                 </div>
@@ -7340,7 +7341,7 @@ function nullSubGroupChats() {
 
               setTimeout(() => {
                 document.querySelectorAll(".menuGroupIcon").forEach((ele) => {
-                  ele?.addEventListener("click", openGroupThreeDotMenu);
+                  ele?.addEventListener("click", openSubGroupThreeDotMenu);
                 });
               }, 100);
 
@@ -7483,7 +7484,39 @@ function nullSubGroupChats() {
   };
 }
 
-function subGroupProspectDelete() {}
+function subGroupProspectDelete(e) {
+  let currentProspect = e.currentTarget.parentElement;
+
+  let group_id = localStorage.getItem("group_id");
+  let sub_group_id = localStorage.getItem("sub_group_id");
+  let prospect_id = currentProspect
+    .querySelector(".prospectContent")
+    .getAttribute("data-prospect_id");
+
+  const url = `${globalURl}/delete_group_prospect`;
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(
+    JSON.stringify({
+      prospect_id,
+      group_id,
+      sub_group_id
+    })
+  );
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let userData = JSON.parse(xhr.responseText);
+
+      if (userData.status == "Deleted") {
+        openSubGroupMembersModal();
+      }
+    }
+  };
+}
 
 if (document.getElementById("subGroupMembersModalCloseBtn")) {
   document
@@ -7631,11 +7664,11 @@ function send_sub_group_message() {
                   <i class="far fa-ellipsis-v menuGroupIcon"></i>
   
                     <div class='menuBox' style="display: none">
-                      <div class='editContainer editGroupContainer'>
+                      <div class='editContainer editSubGroupContainer'>
                         <i class="far fa-edit"></i>
                         <h1>Edit</h1>
                       </div>
-                      <div class="deleteContainer deleteGroupContainer">
+                      <div class="deleteContainer deleteSubGroupContainer">
                         <i class="far fa-trash"></i>
                         <h1>Delete</h1>
                       </div>
@@ -7675,7 +7708,7 @@ function send_sub_group_message() {
 
                 setTimeout(() => {
                   document.querySelectorAll(".menuGroupIcon").forEach((ele) => {
-                    ele?.addEventListener("click", openGroupThreeDotMenu);
+                    ele?.addEventListener("click", openSubGroupThreeDotMenu);
                   });
                 }, 100);
 
@@ -7685,22 +7718,22 @@ function send_sub_group_message() {
                   });
                 }, 100);
               } else {
-                let dbTime = '';
-                let newDate = '';
-                let UTCDate = ''
-                let currentTime = ''
-                let futureTime = ''
-                let TimeDifference = ''
-                let days = ''
-                let hours = ''
-                let minutes = ''
-                let seconds = ''
+                let dbTime = "";
+                let newDate = "";
+                let UTCDate = "";
+                let currentTime = "";
+                let futureTime = "";
+                let TimeDifference = "";
+                let days = "";
+                let hours = "";
+                let minutes = "";
+                let seconds = "";
                 let messageTimeString = "";
-                
+
                 newDate = new Date();
 
                 dbTime = obj.created_at;
-                
+
                 UTCDate = new Date(
                   newDate.getUTCFullYear(),
                   newDate.getUTCMonth(),
@@ -7711,9 +7744,7 @@ function send_sub_group_message() {
                   newDate.getUTCMilliseconds()
                 );
 
-                currentTime = Math.abs(
-                  (UTCDate.getTime() / 1000).toFixed(0)
-                );
+                currentTime = Math.abs((UTCDate.getTime() / 1000).toFixed(0));
 
                 futureTime = Math.abs(
                   (new Date(dbTime).getTime() / 1000).toFixed(0)
@@ -7834,325 +7865,385 @@ function send_sub_group_message() {
           });
         }
       };
+    } else {
+      document.getElementById("sendMsgBtn").style.display = "none";
+      document.getElementById("updateMsgBtn").style.display = "none";
+      document.getElementById("cancelMsgBtn").style.display = "none";
+      document.getElementById("sendGroupMsgBtn").style.display = "block";
+      document.getElementById("updateGroupMsgBtn").style.display = "none";
+      document.getElementById("cancelGroupMsgBtn").style.display = "none";
+      document.getElementById("sendSubGroupMsgBtn").style.display = "none";
+      document.getElementById("updateSubGroupMsgBtn").style.display = "none";
+      document.getElementById("cancelSubGroupMsgBtn").style.display = "none";
+
+      let message_id = localStorage.getItem("message_id");
+      let updatedMessage = document.getElementById("msgInp").value;
+
+      const url = `${globalURl}/edit_single_group_chat`;
+
+      let xhr = new XMLHttpRequest();
+
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(
+        JSON.stringify({
+          id: message_id,
+          text: updatedMessage,
+        })
+      );
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          let response = JSON.parse(xhr.responseText);
+          localStorage.removeItem("message_id");
+          if (response.status == "Updated") {
+            document.getElementById("msgInp").value = "";
+
+            let nullSubGroupChat = localStorage.getItem("nullSubGroupChat");
+
+            var user_id = localStorage.getItem("user_id");
+            var group_id = localStorage.getItem("group_id");
+            var sub_group_id = localStorage.getItem("sub_group_id");
+            var prospect_id = localStorage.getItem("prospect_id");
+
+            let url = "";
+
+            if (nullSubGroupChat) {
+              url = `${globalURl}/get_sub_group_messages/${group_id}/${sub_group_id}/${user_id}`;
+            } else {
+              url = `${globalURl}/sub_group_chat_filter/${group_id}/${sub_group_id}/${prospect_id}/${user_id}`;
+            }
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                let userData = JSON?.parse(xhr.responseText);
+
+                if (userData.group_name) {
+                  localStorage.setItem("group_name", userData.group_name);
+                }
+
+                if (userData.sub_group_name) {
+                  localStorage.setItem("sub_group_name", userData.sub_group_name);
+                }
+
+                document.getElementById(
+                  "groupNamePara"
+                ).innerHTML = `<span style='color: #084DD1;'>Group Name: </span>${
+                  userData.group_name?.length > 10
+                    ? `${userData.group_name.slice()} ...`
+                    : userData.group_name
+                } `;
+          
+                document.getElementById("subGroupNamePara").style.display = "block";
+          
+                document.getElementById(
+                  "subGroupNamePara"
+                ).innerHTML = `<span style='color: #084DD1;'>Sub Group Name: </span>${
+                  userData.sub_group_name?.length > 10
+                    ? `${userData.sub_group_name.slice()} ...`
+                    : userData.sub_group_name
+                }`;
+
+                if (userData.admin == true) {
+                  document.getElementById("deleteBox").innerText = "Delete Sub Group";
+                  document.getElementById("deleteBox").style.display = "flex";
+                } else {
+                  document.getElementById("deleteBox").innerText = "Delete Group";
+                  document.getElementById("deleteBox").style.display = "none";
+                }
+
+                if (userData.data) {
+                  let chatMessageContent = document.querySelector(
+                    ".chatMessageContent"
+                  );
+                  chatMessageContent.innerHTML = "";
+
+                  userData.data.map((obj, i) => {
+                    if (obj.text != null) {
+                      if (obj.sender_id == user_id) {
+                        let dbTime = obj.created_at;
+
+                        let newDate = new Date();
+
+                        let UTCDate = new Date(
+                          newDate.getUTCFullYear(),
+                          newDate.getUTCMonth(),
+                          newDate.getUTCDate(),
+                          newDate.getUTCHours(),
+                          newDate.getUTCMinutes(),
+                          newDate.getUTCSeconds(),
+                          newDate.getUTCMilliseconds()
+                        );
+
+                        let currentTime = Math.abs(
+                          (UTCDate.getTime() / 1000).toFixed(0)
+                        );
+
+                        let futureTime = Math.abs(
+                          (new Date(dbTime).getTime() / 1000).toFixed(0)
+                        );
+
+                        let TimeDifference = currentTime - futureTime;
+
+                        let days = Math.floor(TimeDifference / 86400);
+
+                        let hours = Math.floor(TimeDifference / 3600) % 24;
+
+                        let minutes = Math.floor(TimeDifference / 60) % 60;
+
+                        let seconds = Math.floor(TimeDifference % 60);
+
+                        let messageTimeString = "";
+
+                        if (days == 0) {
+                          if (hours == 0) {
+                            if (minutes == 0) {
+                              if (seconds == 0) {
+                                messageTimeString = `less than a second ago`;
+                              } else {
+                                messageTimeString =
+                                  seconds == 1
+                                    ? `${seconds} second ago`
+                                    : `${seconds} seconds ago`;
+                              }
+                            } else {
+                              messageTimeString =
+                                minutes == 1
+                                  ? `${minutes} minute ago`
+                                  : `${minutes} minutes ago`;
+                            }
+                          } else {
+                            messageTimeString =
+                              hours == 1
+                                ? `${hours} hour ago`
+                                : `${hours} hours ago`;
+                          }
+                        } else {
+                          messageTimeString =
+                            days == 1 ? `${days} day ago` : `${days} days ago`;
+                        }
+
+                        let row = `
+                          <div class='senderMsgContainer'>
+
+                          <div class='myMessageDiv'>
+
+                          <div class="imageNameContainer">
+
+                              <span class="senderName">${obj.username}</span>
+                              <img src="${obj.image}" class='messageImage'/>
+
+                            </div>
+                            <i class="far fa-ellipsis-v menuGroupIcon"></i>
+
+                          <div class='menuBox' style="display: none">
+                            <div class='editContainer editSubGroupContainer'>
+                              <i class="far fa-edit"></i>
+                              <h1>Edit</h1>
+                            </div>
+                            <div class="deleteContainer deleteSubGroupContainer">
+                              <i class="far fa-trash"></i>
+                              <h1>Delete</h1>
+                            </div>
+                          </div>
+                                ${
+                                  obj.replied_id != null
+                                    ? `<div class="prospectReplyDiv">
+                                    <div class="prospectContentDiv" style="${
+                                      obj.reply_image == null
+                                        ? "width: 100%;"
+                                        : ""
+                                    }">
+                                      <h1>${
+                                        obj.reply_msg != null
+                                          ? `<h1>${obj.reply_msg}</h1>`
+                                          : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
+                                      }</h1>
+                                    </div>
+                                    ${
+                                      obj.reply_image != null
+                                        ? `<img src="${obj.reply_image}" class="replyImage1"/>`
+                                        : ""
+                                    }
+                                  </div>`
+                                    : ""
+                                }
+
+                                <i class="fas fa-reply myReplyIcon"></i>
+
+                                <p class="messageTxt" data-replied_id=${
+                                  obj.id
+                                }>${obj.text}</p>
+                                <div class="timestampDiv">
+                                  ${messageTimeString}
+                                </div>
+                              </div>
+
+                          </div>
+                        `;
+                        chatMessageContent.innerHTML += row;
+
+                        setTimeout(() => {
+                          document
+                            .querySelectorAll(".menuGroupIcon")
+                            .forEach((ele) => {
+                              ele?.addEventListener(
+                                "click",
+                                openGroupThreeDotMenu
+                              );
+                            });
+                        }, 100);
+
+                        setTimeout(() => {
+                          document
+                            .querySelectorAll(".myReplyIcon")
+                            .forEach((ele) => {
+                              ele?.addEventListener("click", replyToMessageFn);
+                            });
+                        }, 100);
+                      } else {
+                        let dbTime = obj.created_at;
+
+                        let newDate = new Date();
+
+                        let UTCDate = new Date(
+                          newDate.getUTCFullYear(),
+                          newDate.getUTCMonth(),
+                          newDate.getUTCDate(),
+                          newDate.getUTCHours(),
+                          newDate.getUTCMinutes(),
+                          newDate.getUTCSeconds(),
+                          newDate.getUTCMilliseconds()
+                        );
+
+                        let currentTime = Math.abs(
+                          (UTCDate.getTime() / 1000).toFixed(0)
+                        );
+
+                        let futureTime = Math.abs(
+                          (new Date(dbTime).getTime() / 1000).toFixed(0)
+                        );
+
+                        let TimeDifference = currentTime - futureTime;
+
+                        let days = Math.floor(TimeDifference / 86400);
+
+                        let hours = Math.floor(TimeDifference / 3600) % 24;
+
+                        let minutes = Math.floor(TimeDifference / 60) % 60;
+
+                        let seconds = Math.floor(TimeDifference % 60);
+
+                        let messageTimeString = "";
+
+                        if (days == 0) {
+                          if (hours == 0) {
+                            if (minutes == 0) {
+                              if (seconds == 0) {
+                                messageTimeString = `less than a second ago`;
+                              } else {
+                                messageTimeString =
+                                  seconds == 1
+                                    ? `${seconds} second ago`
+                                    : `${seconds} seconds ago`;
+                              }
+                            } else {
+                              messageTimeString =
+                                minutes == 1
+                                  ? `${minutes} minute ago`
+                                  : `${minutes} minutes ago`;
+                            }
+                          } else {
+                            messageTimeString =
+                              hours == 1
+                                ? `${hours} hour ago`
+                                : `${hours} hours ago`;
+                          }
+                        } else {
+                          messageTimeString =
+                            days == 1 ? `${days} day ago` : `${days} days ago`;
+                        }
+
+                        let row = `
+                          <div class="groupUserMsgContainer">
+
+                          <div class='userMessageDiv'>
+                          <div class="imageNameContainer1">
+                          <img src="${obj.image}" class='messageImage'/>
+                            <span class="groupUserName">${obj.username}</span>
+                          </div>
+
+                            ${
+                              obj.replied_id != null
+                                ? `<div class="prospectReplyDiv1">
+                                <div class="prospectContentDiv" style="${
+                                  obj.reply_image == null ? "width: 100%;" : ""
+                                }">
+                                  <h1>${
+                                    obj.reply_msg != null
+                                      ? `<h1>${obj.reply_msg}</h1>`
+                                      : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
+                                  }</h1>
+                                </div>
+                                ${
+                                  obj.reply_image != null
+                                    ? `<img src="${obj.reply_image}" class="replyImage1"/>`
+                                    : ""
+                                }
+                              </div>`
+                                : ""
+                            }
+
+                              <i class="fas fa-reply replyIcon"></i>
+
+                              <p class="messageTxt" data-replied_id=${obj.id}>${
+                          obj.text
+                        }</p>
+
+                              <div class="timestampUserDiv">
+                                ${messageTimeString}
+                              </div>
+                            </div>
+
+                          </div>
+                        `;
+                        chatMessageContent.innerHTML += row;
+
+                        setTimeout(() => {
+                          document
+                            .querySelectorAll(".replyIcon")
+                            .forEach((ele) => {
+                              ele.addEventListener("click", replyToMessageFn);
+                            });
+                        }, 100);
+                      }
+
+                      chatMessageContent.scroll(
+                        0,
+                        chatMessageContent.scrollHeight
+                      );
+                    }
+                  });
+                }
+              }
+            };
+          }
+        }
+      };
     }
-    // else {
-    //   document.getElementById("sendMsgBtn").style.display = "none";
-    //   document.getElementById("updateMsgBtn").style.display = "none";
-    //   document.getElementById("cancelMsgBtn").style.display = "none";
-    //   document.getElementById("sendGroupMsgBtn").style.display = "block";
-    //   document.getElementById("updateGroupMsgBtn").style.display = "none";
-    //   document.getElementById("cancelGroupMsgBtn").style.display = "none";
-    //   document.getElementById("sendSubGroupMsgBtn").style.display = "none";
-    //   document.getElementById("updateSubGroupMsgBtn").style.display = "none";
-    //   document.getElementById("cancelSubGroupMsgBtn").style.display = "none";
-
-    //   let message_id = localStorage.getItem("message_id");
-    //   let updatedMessage = document.getElementById("msgInp").value;
-
-    //   const url = `${globalURl}/edit_single_group_chat`;
-
-    //   let xhr = new XMLHttpRequest();
-
-    //   xhr.open("POST", url, true);
-    //   xhr.setRequestHeader("Content-Type", "application/json");
-    //   xhr.send(
-    //     JSON.stringify({
-    //       id: message_id,
-    //       text: updatedMessage,
-    //     })
-    //   );
-
-    //   xhr.onreadystatechange = function () {
-    //     if (xhr.readyState == 4 && xhr.status == 200) {
-    //       let response = JSON.parse(xhr.responseText);
-    //       localStorage.removeItem("message_id");
-    //       if (response.status == "Updated") {
-    //         document.getElementById("msgInp").value = "";
-
-    //         let nullGroupChat = localStorage.getItem("nullGroupChat");
-
-    //         let url = "";
-
-    //         if (nullGroupChat) {
-    //           url = `${globalURl}/null_chats/${group_id}/${user_id}`;
-    //         } else {
-    //           url = `${globalURl}/chat_filter/${group_id}/${prospect_id}/${user_id}`;
-    //         }
-
-    //         let xhr = new XMLHttpRequest();
-
-    //         xhr.open("GET", url, true);
-    //         xhr.setRequestHeader("Content-Type", "application/json");
-    //         xhr.send();
-
-    //         xhr.onreadystatechange = function () {
-    //           if (xhr.readyState == 4 && xhr.status == 200) {
-    //             let userData = JSON?.parse(xhr.responseText);
-
-    //             if (userData.group_name) {
-    //               localStorage.setItem("group_name", userData.group_name);
-    //             }
-
-    //             if (userData.admin == true) {
-    //               document.getElementById("deleteBox").style.display = "flex";
-    //             } else {
-    //               document.getElementById("deleteBox").style.display = "none";
-    //             }
-
-    //             if (userData.data) {
-    //               let chatMessageContent = document.querySelector(
-    //                 ".chatMessageContent"
-    //               );
-    //               chatMessageContent.innerHTML = "";
-
-    //               userData.data.map((obj, i) => {
-    //                 if (obj.text != null) {
-    //                   if (obj.sender_id == user_id) {
-    //                     let getHours = new Date().getUTCHours();
-    //                     let getMinutes = new Date().getUTCMinutes();
-
-    //                     let dbTime = obj.created_at.slice(11, 19);
-
-    //                     let currentTime = `${
-    //                       getHours < 10 ? "0" + getHours : "" + getHours
-    //                     }:${
-    //                       getMinutes < 10 ? "0" + getMinutes : "" + getMinutes
-    //                     }`;
-
-    //                     // let currentTime = new Date().toTimeString().slice(0, 5);
-
-    //                     let messageTimeNumber = Number(
-    //                       calculateTime(dbTime, currentTime).slice(0, 2)
-    //                     );
-
-    //                     let messageTimeString = "";
-
-    //                     let modeOfNumber = "";
-
-    //                     if (messageTimeNumber < 10) {
-    //                       messageTimeNumber = Number(
-    //                         calculateTime(dbTime, currentTime).slice(1, 2)
-    //                       );
-
-    //                       if (messageTimeNumber < 1) {
-    //                         messageTimeString = `less than hour ago`;
-    //                       } else {
-    //                         messageTimeString = `${messageTimeNumber} hours ago`;
-    //                       }
-    //                     } else {
-    //                       messageTimeNumber = Number(
-    //                         calculateTime(dbTime, currentTime).slice(0, 2)
-    //                       );
-
-    //                       modeOfNumber = messageTimeNumber;
-
-    //                       modeOfNumber = Math.floor(modeOfNumber / 24);
-
-    //                       if (modeOfNumber < 1) {
-    //                         messageTimeString = `${messageTimeNumber} hours ago`;
-    //                       } else {
-    //                         messageTimeString = `${modeOfNumber} days ago`;
-    //                       }
-    //                     }
-
-    //                     let row = `
-    //                       <div class='senderMsgContainer'>
-
-    //                       <div class='myMessageDiv'>
-
-    //                       <div class="imageNameContainer">
-
-    //                           <span class="senderName">${obj.username}</span>
-    //                           <img src="${obj.image}" class='messageImage'/>
-
-    //                         </div>
-    //                         <i class="far fa-ellipsis-v menuGroupIcon"></i>
-
-    //                       <div class='menuBox' style="display: none">
-    //                         <div class='editContainer editGroupContainer'>
-    //                           <i class="far fa-edit"></i>
-    //                           <h1>Edit</h1>
-    //                         </div>
-    //                         <div class="deleteContainer deleteGroupContainer">
-    //                           <i class="far fa-trash"></i>
-    //                           <h1>Delete</h1>
-    //                         </div>
-    //                       </div>
-    //                             ${
-    //                               obj.replied_id != null
-    //                                 ? `<div class="prospectReplyDiv">
-    //                                 <div class="prospectContentDiv" style="${
-    //                                   obj.reply_image == null
-    //                                     ? "width: 100%;"
-    //                                     : ""
-    //                                 }">
-    //                                   <h1>${
-    //                                     obj.reply_msg != null
-    //                                       ? `<h1>${obj.reply_msg}</h1>`
-    //                                       : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
-    //                                   }</h1>
-    //                                 </div>
-    //                                 ${
-    //                                   obj.reply_image != null
-    //                                     ? `<img src="${obj.reply_image}" class="replyImage1"/>`
-    //                                     : ""
-    //                                 }
-    //                               </div>`
-    //                                 : ""
-    //                             }
-
-    //                             <i class="fas fa-reply myReplyIcon"></i>
-
-    //                             <p class="messageTxt" data-replied_id=${
-    //                               obj.id
-    //                             }>${obj.text}</p>
-    //                             <div class="timestampDiv">
-    //                               ${messageTimeString}
-    //                             </div>
-    //                           </div>
-
-    //                       </div>
-    //                     `;
-    //                     chatMessageContent.innerHTML += row;
-
-    //                     setTimeout(() => {
-    //                       document
-    //                         .querySelectorAll(".menuGroupIcon")
-    //                         .forEach((ele) => {
-    //                           ele?.addEventListener(
-    //                             "click",
-    //                             openGroupThreeDotMenu
-    //                           );
-    //                         });
-    //                     }, 100);
-
-    //                     setTimeout(() => {
-    //                       document
-    //                         .querySelectorAll(".myReplyIcon")
-    //                         .forEach((ele) => {
-    //                           ele?.addEventListener("click", replyToMessageFn);
-    //                         });
-    //                     }, 100);
-    //                   } else {
-    //                     let getHours = new Date().getUTCHours();
-    //                     let getMinutes = new Date().getUTCMinutes();
-
-    //                     let dbTime = obj.created_at.slice(11, 19);
-
-    //                     let currentTime = `${
-    //                       getHours < 10 ? "0" + getHours : "" + getHours
-    //                     }:${
-    //                       getMinutes < 10 ? "0" + getMinutes : "" + getMinutes
-    //                     }`;
-
-    //                     // let currentTime = new Date().toTimeString().slice(0, 5);
-
-    //                     let messageTimeNumber = Number(
-    //                       calculateTime(dbTime, currentTime).slice(0, 2)
-    //                     );
-
-    //                     let messageTimeString = "";
-
-    //                     let modeOfNumber = "";
-
-    //                     if (messageTimeNumber < 10) {
-    //                       messageTimeNumber = Number(
-    //                         calculateTime(dbTime, currentTime).slice(1, 2)
-    //                       );
-
-    //                       if (messageTimeNumber < 1) {
-    //                         messageTimeString = `less than hour ago`;
-    //                       } else {
-    //                         messageTimeString = `${messageTimeNumber} hours ago`;
-    //                       }
-    //                     } else {
-    //                       messageTimeNumber = Number(
-    //                         calculateTime(dbTime, currentTime).slice(0, 2)
-    //                       );
-
-    //                       modeOfNumber = messageTimeNumber;
-
-    //                       modeOfNumber = Math.floor(modeOfNumber / 24);
-
-    //                       if (modeOfNumber < 1) {
-    //                         messageTimeString = `${messageTimeNumber} hours ago`;
-    //                       } else {
-    //                         messageTimeString = `${modeOfNumber} days ago`;
-    //                       }
-    //                     }
-
-    //                     let row = `
-    //                       <div class="groupUserMsgContainer">
-
-    //                       <div class='userMessageDiv'>
-    //                       <div class="imageNameContainer1">
-    //                       <img src="${obj.image}" class='messageImage'/>
-    //                         <span class="groupUserName">${obj.username}</span>
-    //                       </div>
-
-    //                         ${
-    //                           obj.replied_id != null
-    //                             ? `<div class="prospectReplyDiv1">
-    //                             <div class="prospectContentDiv" style="${
-    //                               obj.reply_image == null ? "width: 100%;" : ""
-    //                             }">
-    //                               <h1>${
-    //                                 obj.reply_msg != null
-    //                                   ? `<h1>${obj.reply_msg}</h1>`
-    //                                   : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
-    //                               }</h1>
-    //                             </div>
-    //                             ${
-    //                               obj.reply_image != null
-    //                                 ? `<img src="${obj.reply_image}" class="replyImage1"/>`
-    //                                 : ""
-    //                             }
-    //                           </div>`
-    //                             : ""
-    //                         }
-
-    //                           <i class="fas fa-reply replyIcon"></i>
-
-    //                           <p class="messageTxt" data-replied_id=${obj.id}>${
-    //                       obj.text
-    //                     }</p>
-
-    //                           <div class="timestampUserDiv">
-    //                             ${messageTimeString}
-    //                           </div>
-    //                         </div>
-
-    //                       </div>
-    //                     `;
-    //                     chatMessageContent.innerHTML += row;
-
-    //                     setTimeout(() => {
-    //                       document
-    //                         .querySelectorAll(".replyIcon")
-    //                         .forEach((ele) => {
-    //                           ele.addEventListener("click", replyToMessageFn);
-    //                         });
-    //                     }, 100);
-    //                   }
-
-    //                   chatMessageContent.scroll(
-    //                     0,
-    //                     chatMessageContent.scrollHeight
-    //                   );
-    //                 }
-    //               });
-    //             }
-    //           }
-    //         };
-    //       }
-    //     }
-    //   };
-    // }
   }
 }
 
-if(document.getElementById("subGroupEditBox")) {
-  document.getElementById("subGroupEditBox").addEventListener("click", openSubGroupNameModal)
+if (document.getElementById("subGroupEditBox")) {
+  document
+    .getElementById("subGroupEditBox")
+    .addEventListener("click", openSubGroupNameModal);
 }
 
 function openSubGroupNameModal() {
@@ -8160,8 +8251,10 @@ function openSubGroupNameModal() {
   document.getElementById("subGroupNameModal").style.opacity = "1";
 }
 
-if(document.getElementById('subGroupNameModalCloseBtn')){
-  document.getElementById('subGroupNameModalCloseBtn').addEventListener('click', closeSubGroupNameModal)
+if (document.getElementById("subGroupNameModalCloseBtn")) {
+  document
+    .getElementById("subGroupNameModalCloseBtn")
+    .addEventListener("click", closeSubGroupNameModal);
 }
 
 function closeSubGroupNameModal() {
@@ -8169,8 +8262,10 @@ function closeSubGroupNameModal() {
   document.getElementById("subGroupNameModal").style.opacity = "0";
 }
 
-if(document.querySelector('.createSubGroupBtn')){
-  document.querySelector('.createSubGroupBtn').addEventListener('click', updateSubGroupName)
+if (document.querySelector(".createSubGroupBtn")) {
+  document
+    .querySelector(".createSubGroupBtn")
+    .addEventListener("click", updateSubGroupName);
 }
 
 function updateSubGroupName() {
@@ -8227,4 +8322,434 @@ function updateSubGroupName() {
 
     myToast.showToast();
   }
+}
+
+function openSubGroupThreeDotMenu(e) {
+  let currentMenuBox = e.currentTarget.parentElement.parentElement;
+
+  setTimeout(() => {
+    if (currentMenuBox.querySelector(".menuBox").style.display == "none") {
+      document.querySelectorAll(".menuBox").forEach((ele) => {
+        ele.style.display = "none";
+      });
+      currentMenuBox.querySelector(".menuBox").style.display = "block";
+    } else {
+      currentMenuBox.querySelector(".menuBox").style.display = "none";
+    }
+  }, 100);
+
+  currentMenuBox
+    .querySelector(".editSubGroupContainer")
+    .addEventListener("click", editSubGroupMessage);
+  currentMenuBox
+    .querySelector(".deleteSubGroupContainer")
+    .addEventListener("click", deleteSubGroupMessage);
+}
+
+function editSubGroupMessage(e) {
+  document.querySelectorAll(".menuBox").forEach((ele) => {
+    ele.style.display = "none";
+  });
+
+  let currentMessage = e.currentTarget.parentElement.parentElement;
+
+  let message_id = currentMessage
+    .querySelector(".messageTxt")
+    .getAttribute("data-replied_id");
+  let messageText = currentMessage.querySelector(".messageTxt").innerText;
+
+  localStorage.setItem("message_id", message_id);
+
+  document.getElementById("msgInp").value = messageText;
+
+  document.getElementById("sendMsgBtn").style.display = "none";
+  document.getElementById("updateMsgBtn").style.display = "none";
+  document.getElementById("cancelMsgBtn").style.display = "none";
+
+  document.getElementById("sendGroupMsgBtn").style.display = "none";
+  document.getElementById("updateGroupMsgBtn").style.display = "none";
+  document.getElementById("cancelGroupMsgBtn").style.display = "none";
+
+  document.getElementById("sendSubGroupMsgBtn").style.display = "none";
+  document.getElementById("updateSubGroupMsgBtn").style.display = "block";
+  document.getElementById("cancelSubGroupMsgBtn").style.display = "block";
+}
+
+document
+  .getElementById("cancelSubGroupMsgBtn")
+  .addEventListener("click", () => {
+    document.getElementById("sendMsgBtn").style.display = "none";
+    document.getElementById("updateMsgBtn").style.display = "none";
+    document.getElementById("cancelMsgBtn").style.display = "none";
+
+    document.getElementById("sendGroupMsgBtn").style.display = "none";
+    document.getElementById("updateGroupMsgBtn").style.display = "none";
+    document.getElementById("cancelGroupMsgBtn").style.display = "none";
+
+    document.getElementById("sendSubGroupMsgBtn").style.display = "block";
+    document.getElementById("updateSubGroupMsgBtn").style.display = "none";
+    document.getElementById("cancelSubGroupMsgBtn").style.display = "none";
+    document.getElementById("msgInp").value = "";
+    localStorage.removeItem("message_id");
+  });
+
+document
+  .getElementById("updateSubGroupMsgBtn")
+  .addEventListener("click", send_sub_group_message);
+
+function deleteSubGroupMessage(e) {
+  document.querySelectorAll(".menuBox").forEach((ele) => {
+    ele.style.display = "none";
+  });
+
+  let currentMessage = e.currentTarget.parentElement.parentElement;
+
+  let message_id = currentMessage
+    .querySelector(".messageTxt")
+    .getAttribute("data-replied_id");
+
+  const url = `${globalURl}/delete_single_group_chat/${message_id}`;
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send();
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let userData = JSON.parse(xhr.responseText);
+
+      if (userData.status == "Deleted") {
+        let nullSubGroupChat = localStorage.getItem("nullSubGroupChat");
+
+            var user_id = localStorage.getItem("user_id");
+            var group_id = localStorage.getItem("group_id");
+            var sub_group_id = localStorage.getItem("sub_group_id");
+            var prospect_id = localStorage.getItem("prospect_id");
+
+            let url = "";
+
+            if (nullSubGroupChat) {
+              url = `${globalURl}/get_sub_group_messages/${group_id}/${sub_group_id}/${user_id}`;
+            } else {
+              url = `${globalURl}/sub_group_chat_filter/${group_id}/${sub_group_id}/${prospect_id}/${user_id}`;
+            }
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            let userData = JSON.parse(xhr.responseText);
+
+            if (userData.group_name) {
+              localStorage.setItem("group_name", userData.group_name);
+            }
+
+            if (userData.sub_group_name) {
+              localStorage.setItem("sub_group_name", userData.sub_group_name);
+            }
+
+            document.getElementById(
+              "groupNamePara"
+            ).innerHTML = `<span style='color: #084DD1;'>Group Name: </span>${
+              userData.group_name?.length > 10
+                ? `${userData.group_name.slice()} ...`
+                : userData.group_name
+            } `;
+      
+            document.getElementById("subGroupNamePara").style.display = "block";
+      
+            document.getElementById(
+              "subGroupNamePara"
+            ).innerHTML = `<span style='color: #084DD1;'>Sub Group Name: </span>${
+              userData.sub_group_name?.length > 10
+                ? `${userData.sub_group_name.slice()} ...`
+                : userData.sub_group_name
+            }`;
+
+            if (userData.admin == true) {
+              document.getElementById("deleteBox").innerText = "Delete Sub Group";
+              document.getElementById("deleteBox").style.display = "flex";
+            } else {
+              document.getElementById("deleteBox").innerText = "Delete Group";
+              document.getElementById("deleteBox").style.display = "none";
+            }
+
+            if (userData.data) {
+              let chatMessageContent = document.querySelector(
+                ".chatMessageContent"
+              );
+              chatMessageContent.innerHTML = "";
+
+              userData.data.map((obj, i) => {
+                if (obj.text != null) {
+                  if (obj.sender_id == user_id) {
+                    let dbTime = obj.created_at;
+
+                    let newDate = new Date();
+
+                    let UTCDate = new Date(
+                      newDate.getUTCFullYear(),
+                      newDate.getUTCMonth(),
+                      newDate.getUTCDate(),
+                      newDate.getUTCHours(),
+                      newDate.getUTCMinutes(),
+                      newDate.getUTCSeconds(),
+                      newDate.getUTCMilliseconds()
+                    );
+
+                    let currentTime = Math.abs(
+                      (UTCDate.getTime() / 1000).toFixed(0)
+                    );
+
+                    let futureTime = Math.abs(
+                      (new Date(dbTime).getTime() / 1000).toFixed(0)
+                    );
+
+                    let TimeDifference = currentTime - futureTime;
+
+                    let days = Math.floor(TimeDifference / 86400);
+
+                    let hours = Math.floor(TimeDifference / 3600) % 24;
+
+                    let minutes = Math.floor(TimeDifference / 60) % 60;
+
+                    let seconds = Math.floor(TimeDifference % 60);
+
+                    let messageTimeString = "";
+
+                    if (days == 0) {
+                      if (hours == 0) {
+                        if (minutes == 0) {
+                          if (seconds == 0) {
+                            messageTimeString = `less than a second ago`;
+                          } else {
+                            messageTimeString =
+                              seconds == 1
+                                ? `${seconds} second ago`
+                                : `${seconds} seconds ago`;
+                          }
+                        } else {
+                          messageTimeString =
+                            minutes == 1
+                              ? `${minutes} minute ago`
+                              : `${minutes} minutes ago`;
+                        }
+                      } else {
+                        messageTimeString =
+                          hours == 1
+                            ? `${hours} hour ago`
+                            : `${hours} hours ago`;
+                      }
+                    } else {
+                      messageTimeString =
+                        days == 1 ? `${days} day ago` : `${days} days ago`;
+                    }
+
+                    let row = `
+                        <div class='senderMsgContainer'>
+                        
+                        <div class='myMessageDiv'>
+                        
+                        <div class="imageNameContainer">
+                        
+                            <span class="senderName">${obj.username}</span>
+                            <img src="${obj.image}" class='messageImage'/>
+                          
+                          </div>
+                          <i class="far fa-ellipsis-v menuGroupIcon"></i>
+
+                        <div class='menuBox' style="display: none">
+                          <div class='editContainer editSubGroupContainer'>
+                            <i class="far fa-edit"></i>
+                            <h1>Edit</h1>
+                          </div>
+                          <div class="deleteContainer deleteSubGroupContainer">
+                            <i class="far fa-trash"></i>
+                            <h1>Delete</h1>
+                          </div>
+                        </div>
+                              ${
+                                obj.replied_id != null
+                                  ? `<div class="prospectReplyDiv">
+                                  <div class="prospectContentDiv" style="${
+                                    obj.reply_image == null
+                                      ? "width: 100%;"
+                                      : ""
+                                  }">
+
+                                    <h1>${
+                                      obj.reply_msg != null
+                                        ? `<h1>${obj.reply_msg}</h1>`
+                                        : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
+                                    }</h1>
+                                  </div>
+                                  ${
+                                    obj.reply_image != null
+                                      ? `<img src="${obj.reply_image}" class="replyImage1"/>`
+                                      : ""
+                                  }
+                                </div>`
+                                  : ""
+                              }
+
+                              <i class="fas fa-reply myReplyIcon"></i>
+
+                              <p class="messageTxt" data-replied_id=${obj.id}>${
+                      obj.text
+                    }</p>
+                              <div class="timestampDiv">
+                                ${messageTimeString}
+                              </div>
+                            </div>
+
+                        </div>
+                      `;
+                    chatMessageContent.innerHTML += row;
+
+                    setTimeout(() => {
+                      document
+                        .querySelectorAll(".menuGroupIcon")
+                        .forEach((ele) => {
+                          ele?.addEventListener("click", openGroupThreeDotMenu);
+                        });
+                    }, 100);
+
+                    setTimeout(() => {
+                      document
+                        .querySelectorAll(".myReplyIcon")
+                        .forEach((ele) => {
+                          ele?.addEventListener("click", replyToMessageFn);
+                        });
+                    }, 100);
+                  } else {
+                    let dbTime = obj.created_at;
+
+                    let newDate = new Date();
+
+                    let UTCDate = new Date(
+                      newDate.getUTCFullYear(),
+                      newDate.getUTCMonth(),
+                      newDate.getUTCDate(),
+                      newDate.getUTCHours(),
+                      newDate.getUTCMinutes(),
+                      newDate.getUTCSeconds(),
+                      newDate.getUTCMilliseconds()
+                    );
+
+                    let currentTime = Math.abs(
+                      (UTCDate.getTime() / 1000).toFixed(0)
+                    );
+
+                    let futureTime = Math.abs(
+                      (new Date(dbTime).getTime() / 1000).toFixed(0)
+                    );
+
+                    let TimeDifference = currentTime - futureTime;
+
+                    let days = Math.floor(TimeDifference / 86400);
+
+                    let hours = Math.floor(TimeDifference / 3600) % 24;
+
+                    let minutes = Math.floor(TimeDifference / 60) % 60;
+
+                    let seconds = Math.floor(TimeDifference % 60);
+
+                    let messageTimeString = "";
+
+                    if (days == 0) {
+                      if (hours == 0) {
+                        if (minutes == 0) {
+                          if (seconds == 0) {
+                            messageTimeString = `less than a second ago`;
+                          } else {
+                            messageTimeString =
+                              seconds == 1
+                                ? `${seconds} second ago`
+                                : `${seconds} seconds ago`;
+                          }
+                        } else {
+                          messageTimeString =
+                            minutes == 1
+                              ? `${minutes} minute ago`
+                              : `${minutes} minutes ago`;
+                        }
+                      } else {
+                        messageTimeString =
+                          hours == 1
+                            ? `${hours} hour ago`
+                            : `${hours} hours ago`;
+                      }
+                    } else {
+                      messageTimeString =
+                        days == 1 ? `${days} day ago` : `${days} days ago`;
+                    }
+
+                    let row = `
+                        <div class="groupUserMsgContainer">
+                        
+                        
+                        <div class='userMessageDiv'>
+                        <div class="imageNameContainer1">
+                        <img src="${obj.image}" class='messageImage'/>
+                          <span class="groupUserName">${obj.username}</span>
+                        </div>
+                        
+                          ${
+                            obj.replied_id != null
+                              ? `<div class="prospectReplyDiv1">
+                              <div class="prospectContentDiv" style="${
+                                obj.reply_image == null ? "width: 100%;" : ""
+                              }">
+                                <h1>${
+                                  obj.reply_msg != null
+                                    ? `<h1>${obj.reply_msg}</h1>`
+                                    : '<h1 style="font-style: italic; font-weight: 400; color: #555; width: auto;"><i class="fas fa-ban blockIcon"></i>The message was deleted</h1>'
+                                }</h1>
+                              </div>
+                              ${
+                                obj.reply_image != null
+                                  ? `<img src="${obj.reply_image}" class="replyImage1"/>`
+                                  : ""
+                              }
+                            </div>`
+                              : ""
+                          }
+                          
+                            <i class="fas fa-reply replyIcon"></i>
+                            
+                            <p class="messageTxt" data-replied_id=${obj.id}>${
+                      obj.text
+                    }</p>
+                      
+                            <div class="timestampUserDiv">
+                              ${messageTimeString}
+                            </div>
+                          </div>
+
+                        </div>
+                      `;
+                    chatMessageContent.innerHTML += row;
+
+                    setTimeout(() => {
+                      document.querySelectorAll(".replyIcon").forEach((ele) => {
+                        ele.addEventListener("click", replyToMessageFn);
+                      });
+                    }, 100);
+                  }
+
+                  chatMessageContent.scroll(0, chatMessageContent.scrollHeight);
+                }
+              });
+            }
+          }
+        };
+      }
+    }
+  };
 }
