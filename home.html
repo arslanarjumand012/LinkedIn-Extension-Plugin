@@ -250,15 +250,11 @@
         }
 
         .new_header_right_imgs {
-            width: 100%;
-            position: absolute;
-            right: 2%;
-            top: 0px;
-            display: flex;
-            justify-content: right;
-            align-items: center;
-            z-index: 100;
-        }
+			width: 475px;
+			display: flex;
+			justify-content: right;
+			align-items: center;
+		}
 
         .smallgroupBox {
             width: 45px;
@@ -375,17 +371,6 @@
 		.smallgroupBox:hover {
 			cursor: pointer !important;
 		}
-
-        .logoContainer {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
         .img__logo {
             width: 27px;
@@ -765,6 +750,23 @@
             font-size: 12px;
         }
 
+        .new-header {
+			width: 95%;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+		}
+
+        .imgContainer {
+            width: 475px;
+			height: fit-content;
+			display: flex;
+			justify-content: left;
+			align-items: center;
+			position: relative;
+        }
+
     </style>
 
 </head>
@@ -774,8 +776,7 @@
     <div class="mainContainer" style="padding: 0px 10px; padding-top: 30px; box-sizing: border-box;">
         <div class="new-header" style="position: relative;">
         
-            <div class="imgContainer"
-                style="width: 100%;display: flex; justify-content: start; align-items: center; position: relative; z-index: 100;">
+            <div class="imgContainer">
                 <div class="loaderIcons"></div>
             </div>
 

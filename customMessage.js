@@ -458,6 +458,10 @@ function getChats() {
 
       userActive = userData;
 
+      leftBox__container.innerHTML += `
+      <div class="groupDiv"><i class="fas fa-users groupIcon"></i></div>
+      `;
+
       userData.map((item, i, arr) => {
         var row = `${
           item.image != null
@@ -484,11 +488,6 @@ function getChats() {
 
         leftBox__container.innerHTML += row;
       });
-
-      leftBox__container.innerHTML += `
-      <div class="customHr"></div>
-      <div class="groupDiv"><i class="fas fa-users groupIcon"></i></div>
-      `;
     }
     document.querySelectorAll(".userIcon").forEach((element) => {
       element.addEventListener("click", activeUserChat);
@@ -1043,6 +1042,7 @@ function openChatDynamicModal() {
 
   localStorage.removeItem("replied_id");
 
+  
   dynamicModal.style.transform = "scale(1)";
   dynamicModal.style.opacity = 1;
 
@@ -1137,6 +1137,16 @@ function openChatDynamicModal() {
       });
     }
   };
+
+  group_id = localStorage.getItem("group_id");
+  if(group_id){
+    document.querySelector(".viewSubGroupBtn").style.display = "block";
+    document.querySelector(".styleSubGroup").style.display = "block";
+  }else{
+    document.querySelector(".viewSubGroupBtn").style.display = "none";
+    document.querySelector(".styleSubGroup").style.display = "none";
+
+  }
 }
 
 function chatProspectDelete(e) {
@@ -1627,9 +1637,25 @@ function showNullMembersChats() {
     ele.classList.remove("userClicked");
 
     if (ele.getAttribute("data-receiverid") == receiver_id) {
-      ele.classList.add("userClicked");
+      document.querySelector(".leftBox__container").innerHTML = "";
+      setTimeout(() => {
+        getChats();
+      }, 500);
     }
   });
+
+  setTimeout(() => {
+    let activeInterval = setInterval(() => {
+      if (document.querySelector(".userIcon")) {
+        clearInterval(activeInterval);
+        document.querySelectorAll(".userIcon").forEach((item) => {
+          if (item.getAttribute("data-receiverid") == receiver_id) {
+            item.classList.add("userClicked");
+          }
+        });
+      }
+    }, 100);
+  }, 500);
 
   localStorage.removeItem("prospect_id");
 
@@ -2059,9 +2085,7 @@ function openModal25() {
       }
     };
 
-    document
-      .getElementById("add_member1")
-      .addEventListener("click", addmemberpage);
+    
     document
       .getElementById("add_member2")
       .addEventListener("click", addmemberpage);
@@ -3565,9 +3589,7 @@ if (document.querySelector(".addUser")) {
       }
     };
   });
-  document
-    .getElementById("add_member1")
-    .addEventListener("click", addmemberpage);
+  
   document
     .getElementById("add_member2")
     .addEventListener("click", addmemberpage);
@@ -3878,7 +3900,7 @@ function sendGroupInfo() {
             document.querySelector(".rightUpperBox").style.display = "none";
             document.querySelector(".rightProspectBox").style.display = "flex";
             document.querySelector(".chatMessageContent").style.height =
-              "240px";
+              "225px";
 
             if (userMessages.admin == true) {
               document.getElementById("deleteBox").style.display = "flex";
@@ -4024,7 +4046,7 @@ function sendGroupInfo() {
             document.querySelector(".rightUpperBox").style.display = "none";
             document.querySelector(".rightProspectBox").style.display = "flex";
             document.querySelector(".chatMessageContent").style.height =
-              "255px";
+              "240px";
 
             document.querySelector(".showBtnContainer").innerHTML = "";
             document.querySelector(".showBtnContainer").innerHTML = `
@@ -4867,6 +4889,8 @@ function dynamicModalOpenP() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let userData = JSON.parse(xhr.responseText);
 
+      document.getElementById('dynamicGroupName').innerText = userData.group_name?.length > 10 ? `${userData.group_name.slice(0, 10)}...` : userData.group_name;
+
       if (userData.data) {
         userData.data.map((ele) => {
           if (ele.prospect_data) {
@@ -4946,6 +4970,15 @@ function dynamicModalOpenP() {
       });
     }
   };
+  group_id = localStorage.getItem("group_id");
+  if(group_id){
+    document.querySelector(".viewSubGroupBtn").style.display = "block";
+    document.querySelector(".styleSubGroup").style.display = "block";
+  }else{
+    document.querySelector(".viewSubGroupBtn").style.display = "none";
+    document.querySelector(".styleSubGroup").style.display = "none";
+
+  }
 }
 
 function groupProspectDelete(e) {
@@ -5062,7 +5095,7 @@ function showProspectChat(e) {
       document.getElementById("sendSubGroupMsgBtn").style.display = "none";
       document.querySelector(".rightProspectBox").style.display = "flex";
 
-      document.querySelector(".chatMessageContent").style.height = "240px";
+      document.querySelector(".chatMessageContent").style.height = "225px";
 
       let chatMessageContent = document.querySelector(".chatMessageContent");
       chatMessageContent.innerHTML = "";
@@ -5843,7 +5876,7 @@ function showNullChats() {
       document.getElementById("sendSubGroupMsgBtn").style.display = "none";
       document.querySelector(".rightProspectBox").style.display = "flex";
 
-      document.querySelector(".chatMessageContent").style.height = "255px";
+      document.querySelector(".chatMessageContent").style.height = "240px";
 
       document.getElementById(
         "groupNamePara"
@@ -6314,6 +6347,7 @@ function showProspectData(e) {
   localStorage.removeItem("replied_id");
   document.querySelector(".searchBoxContainer").style.display = "none";
 
+
   let receiver_id = e.target.getAttribute("data-linked_to_id");
   localStorage.setItem("receiver_id", receiver_id);
 
@@ -6324,7 +6358,8 @@ function showProspectData(e) {
       document.getElementById("search_box").value = "";
       document.querySelector(".rightProspectBox").style.display = "none";
       document.querySelector(".chatMessageContent").style.height = "280px";
-      getUserMessages();
+      document.querySelector("#nullHeading").style.display = "none";
+      openChatDynamicModal();
     }
   });
 }
@@ -6771,7 +6806,7 @@ function showSubGroupProspectChat(e) {
       document.getElementById("sendSubGroupMsgBtn").style.display = "block";
       document.querySelector(".rightProspectBox").style.display = "flex";
 
-      document.querySelector(".chatMessageContent").style.height = "220px";
+      document.querySelector(".chatMessageContent").style.height = "215px";
 
       let chatMessageContent = document.querySelector(".chatMessageContent");
 
@@ -7171,7 +7206,7 @@ function nullSubGroupChats() {
       document.getElementById("sendSubGroupMsgBtn").style.display = "block";
       document.querySelector(".rightProspectBox").style.display = "flex";
 
-      document.querySelector(".chatMessageContent").style.height = "255px";
+      document.querySelector(".chatMessageContent").style.height = "240px";
 
       groupUsersArr = userData.users;
 

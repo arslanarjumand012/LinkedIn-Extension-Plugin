@@ -6360,12 +6360,3 @@ function shareProspectInSubGroup() {
     myToast.showToast();
   }
 }
-
-if(localStorage.getItem('user_id')){
-  if(localStorage.getItem('user_id')){
-    document.querySelector('.new-header-logo').style.top = '35px';
-  }
-  else{
-    document.querySelector('.new-header-logo').style.top = '75px';
-  }
-}
